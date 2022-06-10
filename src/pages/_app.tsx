@@ -7,7 +7,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>Next.js</title>
+        <title>折半🐷</title>
       </Head>
       <MantineProvider withGlobalStyles withNormalizeCSS>
         <Component {...pageProps} />
