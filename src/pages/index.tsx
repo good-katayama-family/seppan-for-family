@@ -5,7 +5,7 @@ const Home: NextPage = () => {
   return (
     <div className="p-20">
       <h1>Hello Next.js 👋</h1>
-      <h1>Hello React.js 👋</h1>
+      <h1>Hello React.js </h1>
       <Sample child="Hello Child" />
     </div>
   );
