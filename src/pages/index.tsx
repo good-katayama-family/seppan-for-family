@@ -1,11 +1,12 @@
 import type { NextPage } from "next";
 import { TextInput, Button, Group, Box, NumberInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 const Home: NextPage = () => {
   const [sumMoney, setSumMoney] = useState<number>(0)
+  const [sumMoneyHalf, setSumMoneyHalf] = useState<number>(0)
   const form = useForm({
     initialValues: {
       rent: 0,
@@ -21,6 +22,10 @@ const Home: NextPage = () => {
     setSumMoney(sum)
   };
 
+  useEffect(() => {
+    const num = Math.round(sumMoney / 2)
+    setSumMoneyHalf(num)
+  }, [sumMoney]);
 
   return (
     <div className="px-20">
@@ -62,6 +67,7 @@ const Home: NextPage = () => {
           </Group>
         </form>
         <div className="text-center mt-4 font-bold">今月の合計:{sumMoney}円</div>
+        <div className="text-center mt-4 font-bold">あなたのお支払い:{sumMoneyHalf}円</div>
       </Box>
     </div>
   );
