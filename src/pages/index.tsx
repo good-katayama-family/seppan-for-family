@@ -11,15 +11,15 @@ const Home: NextPage = () => {
   const form = useForm({
     initialValues: {
       rent: 0,
-      utilityCosts: 0,
-      waterBill: 0,
-      foodExpenses: 0,
-      communicationCosts: 0
+      utilityCost: 0,
+      waterCost: 0,
+      foodCost: 0,
+      communicationCost: 0
     },
   });
 
-  const handleSum = (values: { rent: number; utilityCosts: number; waterBill: number; foodExpenses: number; communicationCosts: number; }) => {
-    let sum = values.rent + values.utilityCosts + values.waterBill + values.foodExpenses + values.communicationCosts
+  const handleSum = (values: { rent: number; utilityCost: number; waterCost: number; foodCost: number; communicationCost: number; }) => {
+    let sum = values.rent + values.utilityCost + values.waterCost + values.foodCost + values.communicationCost
     setSumMoney(sum)
   };
 
@@ -57,25 +57,25 @@ const Home: NextPage = () => {
             required
             label="光熱費"
             placeholder="8000"
-            {...form.getInputProps('utilityCosts')}
+            {...form.getInputProps('utilityCost')}
           />
           <NumberInput
             required
             label="水道"
             placeholder="1000"
-            {...form.getInputProps('waterBill')}
+            {...form.getInputProps('waterCost')}
           />
           <NumberInput
             required
             label="食費"
             placeholder="20000"
-            {...form.getInputProps('foodExpenses')}
+            {...form.getInputProps('foodCost')}
           />
           <NumberInput
             required
             label="通信費"
             placeholder="4000"
-            {...form.getInputProps('communicationCosts')}
+            {...form.getInputProps('communicationCost')}
           />
           <Group position="center" mt="md">
             <Button type="submit" variant="light" color="violet">合計</Button>
