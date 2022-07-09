@@ -3,6 +3,7 @@ import { Slider, Button, Group, Box, NumberInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useEffect, useState } from "react";
 import { PieChart } from "@component/chart/PieChart";
+import { ReportMoney } from 'tabler-icons-react';
 
 type formValue = {
   rent: number;
@@ -41,7 +42,15 @@ const Home: NextPage = () => {
 
   return (
     <div className="px-20">
-      <h1 className="text-center">Money Half</h1>
+      <div className="flex justify-center">
+        <h1 className="text-center">Money Half</h1>
+        <ReportMoney
+          size={36}
+          strokeWidth={2}
+          color={'#7950f2'}
+          className="mt-[28px]"
+        />
+      </div>
       <div className="w-[200px] m-auto mb-6">
         <Slider
           value={ratio}
