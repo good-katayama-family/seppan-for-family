@@ -60,30 +60,35 @@ const Home: NextPage = () => {
         <form onSubmit={form.onSubmit((values) => handleSum(values))}>
           <NumberInput
             required
+            hideControls={true}
             label="家賃"
             placeholder="56000"
             {...form.getInputProps('rent')}
           />
           <NumberInput
             required
+            hideControls={true}
             label="光熱費"
             placeholder="8000"
             {...form.getInputProps('utilityCost')}
           />
           <NumberInput
             required
+            hideControls={true}
             label="水道"
             placeholder="1000"
             {...form.getInputProps('waterCost')}
           />
           <NumberInput
             required
+            hideControls={true}
             label="食費"
             placeholder="20000"
             {...form.getInputProps('foodCost')}
           />
           <NumberInput
             required
+            hideControls={true}
             label="通信費"
             placeholder="4000"
             {...form.getInputProps('communicationCost')}
