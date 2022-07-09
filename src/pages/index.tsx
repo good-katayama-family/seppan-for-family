@@ -2,11 +2,20 @@ import type { NextPage } from "next";
 import { Slider, Button, Group, Box, NumberInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useEffect, useState } from "react";
+import { PieChart } from "@component/chart/PieChart";
 
+type formValue = {
+  rent: number;
+  utilityCost: number;
+  waterCost: number;
+  foodCost: number;
+  communicationCost: number
+}
 
 const Home: NextPage = () => {
   const [sumMoney, setSumMoney] = useState<number>(0)
   const [sumMoneyHalf, setSumMoneyHalf] = useState<number>(0)
+  const [ratioOfpayment, setRatioOfpayment] = useState<formValue>()
   const [ratio, setRatio] = useState(5);
   const form = useForm({
     initialValues: {
@@ -19,7 +28,9 @@ const Home: NextPage = () => {
   });
 
   const handleSum = (values: { rent: number; utilityCost: number; waterCost: number; foodCost: number; communicationCost: number; }) => {
+    console.log(values);
     let sum = values.rent + values.utilityCost + values.waterCost + values.foodCost + values.communicationCost
+    setRatioOfpayment(values)
     setSumMoney(sum)
   };
 
@@ -86,6 +97,7 @@ const Home: NextPage = () => {
         <div className="text-center mt-4 font-bold">あなたの負担割合:{ratio}割</div>
         {/* <button onClick={() => console.log(ratio)}>osite</button> */}
       </Box>
+      {ratioOfpayment && <PieChart ratioOfpayment={ratioOfpayment!} />}
     </div>
   );
 };
