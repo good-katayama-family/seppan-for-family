@@ -29,10 +29,11 @@ const Home: NextPage = () => {
   });
 
   const handleSum = (values: { rent: number; utilityCost: number; waterCost: number; foodCost: number; communicationCost: number; }) => {
-    console.log(values);
     let sum = values.rent + values.utilityCost + values.waterCost + values.foodCost + values.communicationCost
-    setRatioOfpayment(values)
-    setSumMoney(sum)
+    if (sum !== 0) {
+      setRatioOfpayment(values)
+      setSumMoney(sum)
+    }
   };
 
   useEffect(() => {
