@@ -111,7 +111,7 @@ const Home: NextPage = () => {
         <div className="text-center mt-4 font-bold">あなたの負担割合:{ratio}割</div>
         {/* <button onClick={() => console.log(ratio)}>osite</button> */}
       </Box>
-      {ratioOfpayment && <PieChart ratioOfpayment={ratioOfpayment!} />}
+      {ratioOfpayment && <PieChart ratioOfpayment={ratioOfpayment!} ratio={ratio!} />}
     </div>
   );
 };

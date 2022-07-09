@@ -11,18 +11,25 @@ type Props = {
         waterCost: number;
         foodCost: number;
         communicationCost: number
-    }
+    },
+    ratio: number;
 }
 
-export const PieChart: FC<Props> = ({ ratioOfpayment }) => {
+export const PieChart: FC<Props> = ({ ratioOfpayment, ratio }) => {
     const { rent, utilityCost, waterCost, foodCost, communicationCost } = ratioOfpayment
-
+    console.log(ratio, 222222);
     const data = {
-        labels: ['家賃', '光熱費', '水道代', '食費', '交際費'],
+        labels: ['家賃', '光熱費', '水道代', '食費', '通信費'],
         datasets: [
             {
                 label: '# of Votes',
-                data: [rent, utilityCost, waterCost, foodCost, communicationCost],
+                data: [
+                    Math.round(rent * (ratio / 10)),
+                    Math.round(utilityCost * (ratio / 10)),
+                    Math.round(waterCost) * (ratio / 10),
+                    Math.round(foodCost * (ratio / 10)),
+                    Math.round(communicationCost * (ratio / 10))
+                ],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
