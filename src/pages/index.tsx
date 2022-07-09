@@ -5,38 +5,46 @@ import { useEffect, useState } from "react";
 import { PieChart } from "@component/chart/PieChart";
 import { ReportMoney } from 'tabler-icons-react';
 
-type formValue = {
-  rent: number;
-  utilityCost: number;
-  waterCost: number;
-  foodCost: number;
-  communicationCost: number
+export type formValue = {
+  [key: string]: number | null
+  // rent: number | null;
+  // utilityCost: number | null;
+  // waterCost: number | null;
+  // foodCost: number | null;
+  // communicationCost: number | null;
 }
 
 const Home: NextPage = () => {
-  const [sumMoney, setSumMoney] = useState<number>(0)
+  const [sumMoney, setSumMoney] = useState<number | null>(0)
   const [sumMoneyHalf, setSumMoneyHalf] = useState<number>(0)
   const [ratioOfpayment, setRatioOfpayment] = useState<formValue>()
   const [ratio, setRatio] = useState(5);
+
   const form = useForm({
     initialValues: {
-      rent: 0,
-      utilityCost: 0,
-      waterCost: 0,
-      foodCost: 0,
-      communicationCost: 0
+      rent: null,
+      utilityCost: null,
+      waterCost: null,
+      foodCost: null,
+      communicationCost: null
     },
   });
 
-  const handleSum = (values: { rent: number; utilityCost: number; waterCost: number; foodCost: number; communicationCost: number; }) => {
+  const handleSum = (values: formValue) => {
     console.log(values);
-    let sum = values.rent + values.utilityCost + values.waterCost + values.foodCost + values.communicationCost
+    let sum = [
+      values.rent,
+      values.utilityCost,
+      values.waterCost,
+      values.foodCost,
+      values.communicationCost
+    ].filter(v => v).reduce((a, b) => a! + b!, 0);
     setRatioOfpayment(values)
     setSumMoney(sum)
   };
 
   useEffect(() => {
-    const num = Math.round((sumMoney * ratio) / 10)
+    const num = Math.round(sumMoney! * (ratio / 10))
     setSumMoneyHalf(num)
   }, [sumMoney, ratio]);
 
@@ -106,12 +114,11 @@ const Home: NextPage = () => {
             <Button type="submit" variant="light" color="violet">合計</Button>
           </Group>
         </form>
-        <div className="text-center mt-4 font-bold">今月の合計:{sumMoney.toLocaleString()}円</div>
+        <div className="text-center mt-4 font-bold">今月の合計:{sumMoney?.toLocaleString() || 0}円</div>
         <div className="text-center mt-4 font-bold">あなたのお支払い:{sumMoneyHalf.toLocaleString()}円</div>
         <div className="text-center mt-4 font-bold">あなたの負担割合:{ratio}割</div>
-        {/* <button onClick={() => console.log(ratio)}>osite</button> */}
       </Box>
-      {ratioOfpayment && <PieChart ratioOfpayment={ratioOfpayment!} />}
+      {ratioOfpayment && <PieChart ratioOfpayment={ratioOfpayment} />}
     </div>
   );
 };
