@@ -14,10 +14,10 @@ type Props = {
 export const PieChart: FC<Props> = ({ ratioOfpayment, ratio }) => {
 
     return useMemo(() => {
-        const { rent, utilityCost, waterCost, foodCost, communicationCost } = ratioOfpayment
+        const { rent, utilityCost, waterCost, foodCost, communicationCost, dailyCost, entertainmentCost, othersCost } = ratioOfpayment
 
         const data = {
-            labels: ['家賃', '光熱費', '水道代', '食費', '通信費'],
+            labels: ['家賃', '光熱費', '水道代', '食費', '通信費', '日用品', '交際費', 'その他'],
             datasets: [
                 {
                     label: '# of Votes',
@@ -26,21 +26,30 @@ export const PieChart: FC<Props> = ({ ratioOfpayment, ratio }) => {
                         Math.round(utilityCost! * (ratio / 10)),
                         Math.round(waterCost! * (ratio / 10)),
                         Math.round(foodCost! * (ratio / 10)),
-                        Math.round(communicationCost! * (ratio / 10))
+                        Math.round(communicationCost! * (ratio / 10)),
+                        Math.round(dailyCost! * (ratio / 10)),
+                        Math.round(entertainmentCost! * (ratio / 10)),
+                        Math.round(othersCost! * (ratio / 10))
                     ],
                     backgroundColor: [
+                        'rgba(255, 18, 213, 0.2)',
                         'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(255, 181, 99, 0.2)',
+                        'rgba(107, 235, 80, 0.2)',
                         'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(80, 115, 235, 0.2)',
+                        'rgba(153, 102, 255, 0.2)'
                     ],
                     borderColor: [
+                        'rgba(255, 18, 213, 1)',
                         'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
+                        'rgba(255, 181, 99, 1)',
+                        'rgba(107, 235, 80, 1)',
                         'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(80, 115, 235, 1)',
+                        'rgba(153, 102, 255, 1)'
                     ],
                     borderWidth: 1,
                 },

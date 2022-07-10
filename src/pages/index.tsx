@@ -6,12 +6,15 @@ import { PieChart } from "@component/chart/PieChart";
 import { ReportMoney } from 'tabler-icons-react';
 
 export type formValue = {
-  [key: string]: number | null
-  // rent: number | null;
-  // utilityCost: number | null;
-  // waterCost: number | null;
-  // foodCost: number | null;
-  // communicationCost: number | null;
+  //[key: string]: number | null
+  rent: number | null;
+  utilityCost: number | null;
+  waterCost: number | null;
+  foodCost: number | null;
+  communicationCost: number | null;
+  dailyCost: number | null;
+  entertainmentCost: number | null;
+  othersCost: number | null;
 }
 
 const Home: NextPage = () => {
@@ -26,7 +29,10 @@ const Home: NextPage = () => {
       utilityCost: null,
       waterCost: null,
       foodCost: null,
-      communicationCost: null
+      communicationCost: null,
+      dailyCost: null,
+      entertainmentCost: null,
+      othersCost: null
     },
   });
 
@@ -37,7 +43,10 @@ const Home: NextPage = () => {
       values.utilityCost,
       values.waterCost,
       values.foodCost,
-      values.communicationCost
+      values.communicationCost,
+      values.dailyCost,
+      values.entertainmentCost,
+      values.othersCost
     ].filter(v => v).reduce((a, b) => a! + b!, 0);
     setRatioOfpayment(values)
     setSumMoney(sum)
@@ -107,16 +116,37 @@ const Home: NextPage = () => {
             required
             hideControls={true}
             label="通信費"
-            placeholder="4000"
+            placeholder="4500"
             {...form.getInputProps('communicationCost')}
+          />
+          <NumberInput
+            required
+            hideControls={true}
+            label="日用品費"
+            placeholder="3800"
+            {...form.getInputProps('dailyCost')}
+          />
+          <NumberInput
+            required
+            hideControls={true}
+            label="交際費"
+            placeholder="15000"
+            {...form.getInputProps('entertainmentCost')}
+          />
+          <NumberInput
+            required
+            hideControls={true}
+            label="その他"
+            placeholder="1200"
+            {...form.getInputProps('othersCost')}
           />
           <Group position="center" mt="md">
             <Button type="submit" variant="light" color="violet">合計</Button>
           </Group>
         </form>
-        <div className="text-center mt-4 font-bold">今月の合計:{sumMoney?.toLocaleString() || 0}円</div>
-        <div className="text-center mt-4 font-bold">あなたのお支払い:{sumMoneyHalf.toLocaleString()}円</div>
-        <div className="text-center mt-4 font-bold">あなたの負担割合:{ratio}割</div>
+        <div className="text-center mt-4">今月の合計:<span className="font-bold text-xl pr-2 pl-2">{sumMoney?.toLocaleString() || 0}</span>円</div>
+        <div className="text-center mt-4">あなたのお支払い:<span className="font-bold text-xl pr-2 pl-2">{sumMoneyHalf.toLocaleString()}</span>円</div>
+        <div className="text-center mt-4">あなたの負担割合:<span className="font-bold text-xl pr-2 pl-2">{ratio}</span>割</div>
       </Box>
       {ratioOfpayment && <PieChart ratioOfpayment={ratioOfpayment!} ratio={ratio!} />}
     </div>
