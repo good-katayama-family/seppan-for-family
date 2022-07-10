@@ -17,7 +17,7 @@ export const PieChart: FC<Props> = ({ ratioOfpayment, ratio }) => {
         const { rent, utilityCost, waterCost, foodCost, communicationCost } = ratioOfpayment
 
         const data = {
-            labels: ['家賃', '光熱費', '水道代', '食費', '交際費'],
+            labels: ['家賃', '光熱費', '水道代', '食費', '通信費'],
             datasets: [
                 {
                     label: '# of Votes',
@@ -51,5 +51,5 @@ export const PieChart: FC<Props> = ({ ratioOfpayment, ratio }) => {
                 <Pie data={data} />
             </div>
         )
-    }, [ratioOfpayment])
+    }, [ratioOfpayment, ratio])
 }
