@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { FC, useMemo } from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
@@ -7,9 +8,10 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 type Props = {
     ratioOfpayment: formValue
+    ratio: number;
 }
 
-export const PieChart: FC<Props> = ({ ratioOfpayment }) => {
+export const PieChart: FC<Props> = ({ ratioOfpayment, ratio }) => {
 
     return useMemo(() => {
         const { rent, utilityCost, waterCost, foodCost, communicationCost } = ratioOfpayment
@@ -19,7 +21,13 @@ export const PieChart: FC<Props> = ({ ratioOfpayment }) => {
             datasets: [
                 {
                     label: '# of Votes',
-                    data: [rent, utilityCost, waterCost, foodCost, communicationCost],
+                    data: [
+                        Math.round(rent! * (ratio / 10)),
+                        Math.round(utilityCost! * (ratio / 10)),
+                        Math.round(waterCost! * (ratio / 10)),
+                        Math.round(foodCost! * (ratio / 10)),
+                        Math.round(communicationCost! * (ratio / 10))
+                    ],
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',

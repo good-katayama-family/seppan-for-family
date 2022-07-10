@@ -118,7 +118,7 @@ const Home: NextPage = () => {
         <div className="text-center mt-4 font-bold">あなたのお支払い:{sumMoneyHalf.toLocaleString()}円</div>
         <div className="text-center mt-4 font-bold">あなたの負担割合:{ratio}割</div>
       </Box>
-      {ratioOfpayment && <PieChart ratioOfpayment={ratioOfpayment} />}
+      {ratioOfpayment && <PieChart ratioOfpayment={ratioOfpayment!} ratio={ratio!} />}
     </div>
   );
 };
