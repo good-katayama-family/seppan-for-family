@@ -13,6 +13,7 @@
     "@mantine/form": "^4.2.12",
     "@mantine/hooks": "^4.2.5",
     "@mantine/next": "^4.2.5",
+    "@supabase/supabase-js": "^1.35.4",
     "@types/faker": "^5.5.3",
     "chart.js": "^3.8.0",
     "faker": "^5.5.3",
