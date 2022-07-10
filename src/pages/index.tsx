@@ -4,6 +4,7 @@ import { useForm } from '@mantine/form';
 import { useEffect, useState } from "react";
 import { PieChart } from "@component/chart/PieChart";
 import { ReportMoney } from 'tabler-icons-react';
+import { supabase } from "src/lib/supabase/supabase";
 
 export type formValue = {
   //[key: string]: number | null
@@ -25,19 +26,18 @@ const Home: NextPage = () => {
 
   const form = useForm({
     initialValues: {
-      rent: null,
-      utilityCost: null,
-      waterCost: null,
-      foodCost: null,
-      communicationCost: null,
-      dailyCost: null,
-      entertainmentCost: null,
-      othersCost: null
+      rent: 0,
+      utilityCost: 0,
+      waterCost: 0,
+      foodCost: 0,
+      communicationCost: 0,
+      dailyCost: 0,
+      entertainmentCost: 0,
+      othersCost: 0
     },
   });
 
-  const handleSum = (values: formValue) => {
-    console.log(values);
+  const handleSum = async (values: formValue) => {
     let sum = [
       values.rent,
       values.utilityCost,
@@ -48,10 +48,57 @@ const Home: NextPage = () => {
       values.entertainmentCost,
       values.othersCost
     ].filter(v => v).reduce((a, b) => a! + b!, 0);
+
+    //データが存在するか確認
+    const { data, error } = await supabase
+      .from('month_of_cost')
+      .select()
+
+    //存在しないならデータを追加 
+    if (data?.length === 0) {
+      handleInsert(values)
+    } else {
+      handleUpdate(values, data![0].id)
+    }
+
     setRatioOfpayment(values)
     setSumMoney(sum)
   };
 
+  //データを更新
+  const handleUpdate = async (values: formValue, id: number) => {
+    const { data, error } = await supabase
+      .from('month_of_cost')
+      .update({
+        rent: values.rent,
+        utility: values.utilityCost,
+        water: values.waterCost,
+        food: values.foodCost,
+        communication: values.communicationCost,
+        daily: values.dailyCost,
+        entertainment: values.entertainmentCost,
+        others: values.othersCost
+      })
+      .match({ id: id })
+  }
+  //データを追加
+  const handleInsert = async (values: formValue) => {
+    const { data, error } = await supabase
+      .from('month_of_cost')
+      .insert([
+        {
+          rent: values.rent,
+          utility: values.utilityCost,
+          water: values.waterCost,
+          food: values.foodCost,
+          communication: values.communicationCost,
+          daily: values.dailyCost,
+          entertainment: values.entertainmentCost,
+          others: values.othersCost
+        }
+      ])
+  }
+  //合計と割合が変更したら、表示を更新
   useEffect(() => {
     const num = Math.round(sumMoney! * (ratio / 10))
     setSumMoneyHalf(num)
