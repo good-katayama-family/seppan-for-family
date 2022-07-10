@@ -24,6 +24,7 @@ const Home: NextPage = () => {
   const [ratioOfpayment, setRatioOfpayment] = useState<formValue>()
   const [ratio, setRatio] = useState(5);
 
+
   const form = useForm({
     initialValues: {
       rent: 0,
@@ -81,6 +82,7 @@ const Home: NextPage = () => {
       })
       .match({ id: id })
   }
+
   //データを追加
   const handleInsert = async (values: formValue) => {
     const { data, error } = await supabase
@@ -98,11 +100,46 @@ const Home: NextPage = () => {
         }
       ])
   }
+
+  const handleSetInit = async () => {
+    const { data, error } = await supabase
+      .from('month_of_cost')
+      .select()
+    let pastSum =
+      data![0].rent +
+      data![0].utility +
+      data![0].water +
+      data![0].food +
+      data![0].communication +
+      data![0].daily +
+      data![0].entertainment +
+      data![0].others;
+
+    setSumMoney(pastSum)
+    setSumMoneyHalf(pastSum * (ratio / 10))
+
+    form.setValues({
+      rent: data![0].rent,
+      utilityCost: data![0].utility,
+      waterCost: data![0].water,
+      foodCost: data![0].food,
+      communicationCost: data![0].communication,
+      dailyCost: data![0].daily,
+      entertainmentCost: data![0].entertainment,
+      othersCost: data![0].others
+    });
+  }
+
   //合計と割合が変更したら、表示を更新
   useEffect(() => {
     const num = Math.round(sumMoney! * (ratio / 10))
     setSumMoneyHalf(num)
   }, [sumMoney, ratio]);
+
+  //初回読み込み時のみ実行する
+  useEffect(() => {
+    handleSetInit()
+  }, []);
 
   return (
     <div className="px-20">
