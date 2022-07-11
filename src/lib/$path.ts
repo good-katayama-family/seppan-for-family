@@ -2,6 +2,9 @@ export const pagesPath = {
   "addform": {
     $url: (url?: { hash?: string }) => ({ pathname: '/addform' as const, hash: url?.hash })
   },
+  "line": {
+    $url: (url?: { hash?: string }) => ({ pathname: '/line' as const, hash: url?.hash })
+  },
   "signin": {
     $url: (url?: { hash?: string }) => ({ pathname: '/signin' as const, hash: url?.hash })
   },
