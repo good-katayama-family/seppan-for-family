@@ -9,14 +9,14 @@
   上記二つのコマンドをまとめると
   - git switch -c ブランチ名
   
- - 作業ができたらdevelopに移動
- - git pull
- - 作業ブランチに移動
- - git merge develop
- - コンフリクト解消
- - commit push
- - PR
- - merge
+ - 作業ができたらdevelopに移動しマージができる状態にブランチを更新する
+  - git pull
+  - git switch ブランチ名 --- 作業ブランチに移動
+  - git merge develop --- developを取り込む　
+  - コンフリクト解消
+  - commit push
+  - PR
+  - merge
  
  
  ##### developからmainへのマージはkatayama8000がやるよ
