@@ -50,10 +50,16 @@ const SubscriptionAdd = () => {
 
             })
             .match({ id: id })
-        if (data !== null) {
+        if (data) {
             showNotification({
-                title: 'Default notification',
-                message: 'Hey there, your code is awesome! 🤥',
+                disallowClose: true,
+                autoClose: 2000,
+                title: "登録できました！！",
+                message: "",
+                icon: <Check />,
+                color: 'violet',
+                className: 'my-notification-class',
+                loading: false,
             })
         }
     };
@@ -79,19 +85,6 @@ const SubscriptionAdd = () => {
         <div className="w-[200px] m-auto">
             <h1>サブスク登録</h1>
             {/* <Notification icon={<Check size={20} />} onClose={()=>{}} color="violet" title="サブスク管理に登録されました！"></Notification> */}
-            <Group position="center">
-                <Button
-                    variant="outline"
-                    onClick={() =>
-                        showNotification({
-                            title: <div><Notification icon={<Check size={20} />} onClose={() => { }} color="violet" title="サブスク管理に登録されました！"></Notification></div>,
-                            message: <div><Notification icon={<Check size={20} />} onClose={() => { }} color="violet" title="サブスク管理に登録されました！"></Notification></div>,
-                        })
-                    }
-                >
-                    Show notification
-                </Button>
-            </Group>
             <form onSubmit={form.onSubmit((values) => handleSet(values))}>
                 <TextInput
                     required
@@ -108,8 +101,8 @@ const SubscriptionAdd = () => {
                     label="支払い周期"
                     required
                     data={[
-                        { value: 'parYear', label: '年額' },
-                        { value: 'perMonth', label: '月額' },
+                        { value: '年', label: '年額' },
+                        { value: '月', label: '月額' },
                     ]}
                     {...form.getInputProps('pay_period')}
                 />
