@@ -1,6 +1,6 @@
-### 折半するよ
+# 折半するよ
 
-#### developにマージする方法
+## developにマージする方法
 - developから作業ブランチを作る
   - git branch ブランチ名
   - git switch ブランチ名
@@ -18,6 +18,18 @@
  - PR
  - merge
  
+ 
  ##### developからmainへのマージはkatayama8000がやるよ
+ 
+ 
   
  
+## 使用技術スタック
+- TypeScript ---- good-programming-language
+- React.js ---- javascript-library
+- Next.js ---- react-library
+- tailwind.css ---- css
+- Prettier ---- formatter
+- ESLint ---- linter
+- Mantine ---- UI-library
+- supabase ---- backend
