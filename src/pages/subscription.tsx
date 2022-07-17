@@ -8,7 +8,7 @@ const Subscription = () => {
     const [payday, onChange] = useState<Date>(new Date());
     return (
         <div className="w-[200px] m-auto">
-            <h1>サブスク管理</h1>
+            <h1>サブスク登録</h1>
             <TextInput
                 required
                 value={subname}
@@ -36,11 +36,10 @@ const Subscription = () => {
                 placeholder="550"
             />
             <Group position="center" mt="md">
-                <Button leftIcon={<Database />} variant="light" color="violet">
+                <Button type='submit' leftIcon={<Database />} variant="light" color="violet">
                     登録
                 </Button>
             </Group>
-
         </div>
     )
 }

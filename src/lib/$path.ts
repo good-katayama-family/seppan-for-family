@@ -14,6 +14,9 @@ export const pagesPath = {
   "subscription": {
     $url: (url?: { hash?: string }) => ({ pathname: '/subscription' as const, hash: url?.hash })
   },
+  "subscriptionAdd": {
+    $url: (url?: { hash?: string }) => ({ pathname: '/subscriptionAdd' as const, hash: url?.hash })
+  },
   "test": {
     $url: (url?: { hash?: string }) => ({ pathname: '/test' as const, hash: url?.hash })
   },
