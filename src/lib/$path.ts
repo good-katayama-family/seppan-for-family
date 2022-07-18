@@ -5,6 +5,9 @@ export const pagesPath = {
   "line": {
     $url: (url?: { hash?: string }) => ({ pathname: '/line' as const, hash: url?.hash })
   },
+  "pop": {
+    $url: (url?: { hash?: string }) => ({ pathname: '/pop' as const, hash: url?.hash })
+  },
   "signin": {
     $url: (url?: { hash?: string }) => ({ pathname: '/signin' as const, hash: url?.hash })
   },

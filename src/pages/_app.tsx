@@ -8,7 +8,7 @@ import Link from "next/link";
 const LINK = [
   { url: "/", name: "ホーム" },
   { url: "/subscription", name: "サブスク管理" },
-  { url: "/subscriptionAdd", name: "サブスク登録" },
+  // { url: "/subscriptionAdd", name: "サブスク登録" },
   { url: "/signin", name: "サインイン" },
   { url: "/signup", name: "サインアップ" },
 ]
@@ -26,11 +26,14 @@ function MyApp({ Component, pageProps }: AppProps) {
           <div className="text-left">
             {LINK.map((link) => {
               return (
-                <Link href={link.url}>
-                  <a>
-                    {link.name} /
-                  </a>
-                </Link>
+                <div key={link.url}>
+                  <Link href={link.url}>
+                    <a>
+                      {link.name} /
+                    </a>
+                  </Link>
+                </div>
+
               )
             })}
           </div>
