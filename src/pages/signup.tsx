@@ -3,6 +3,7 @@ import { supabase } from "../lib/supabase/supabase";
 import { useForm } from "@mantine/form";
 import { TextInput, Button, Group, Box, PasswordInput } from "@mantine/core";
 import { useState } from "react";
+import { WritingSign } from "tabler-icons-react";
 
 
 //emailで認証しなければならないらしい
@@ -43,7 +44,15 @@ const SignUp: NextPage = () => {
     });
     return (
         <Box sx={{ maxWidth: 300 }} mx="auto">
-            <h1 className='text-center'>新規登録</h1>
+            <div className='flex justify-center'>
+                <h1 className='text-center'>新規登録</h1>
+                <WritingSign
+                    size={36}
+                    strokeWidth={2}
+                    color={'#7950f2'}
+                    className="mt-[28px]"
+                />
+            </div>
             <form onSubmit={form.onSubmit((values) => handleSignin(values))}>
                 <TextInput
                     required

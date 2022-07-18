@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import { DatePicker, DateRangePicker } from '@mantine/dates';
-import { TextInput, Select, NumberInput, Button, Group, ThemeIcon, Notification } from '@mantine/core';
-import { Database } from 'tabler-icons-react';
+import { DatePicker } from '@mantine/dates';
+import { TextInput, Select, NumberInput, Button, Group } from '@mantine/core';
+import { TableImport } from 'tabler-icons-react';
 import { useForm } from '@mantine/hooks';
 import { supabase } from 'src/lib/supabase/supabase';
 import { Check } from 'tabler-icons-react';
@@ -65,9 +64,17 @@ const SubscriptionAdd = () => {
     }
 
     return (
-        <div className="w-[200px] m-auto">
-            <h1>サブスク登録</h1>
-            {/* <Notification icon={<Check size={20} />} onClose={()=>{}} color="violet" title="サブスク管理に登録されました！"></Notification> */}
+        <div className="w-[230px] m-auto">
+            <div className='flex justify-center'>
+                <h1>サブスク登録</h1>
+                <TableImport
+                    size={36}
+                    strokeWidth={2}
+                    color={'#7950f2'}
+                    className="mt-[28px]"
+                />
+
+            </div>
             <form onSubmit={form.onSubmit((values) => handleSet(values))}>
                 <TextInput
                     required
@@ -97,7 +104,7 @@ const SubscriptionAdd = () => {
                     {...form.getInputProps('membership_fee')}
                 />
                 <Group position="center" mt="md">
-                    <Button leftIcon={<Database />} variant="light" color="violet" type="submit">
+                    <Button variant="light" color="violet" type="submit">
                         登録
                     </Button>
                 </Group>

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { DatePicker, DateRangePicker } from '@mantine/dates';
-import { TextInput, Select, NumberInput, Button, Group, Table } from '@mantine/core';
-import { Database } from 'tabler-icons-react';
+import { Button, Group, Table } from '@mantine/core';
+import { Table as Table_icon } from 'tabler-icons-react';
 import { supabase } from 'src/lib/supabase/supabase';
 
 export type formValue = {
@@ -37,9 +36,23 @@ const Subscription = () => {
 
     return (
         <div className="w-[400px] m-auto">
-            <h1 className='text-center'>サブスク管理画面</h1>
-            <Table>
-                <thead>
+            <div className='flex justify-center'>
+                <h1 className='text-center'>サブスク管理画面</h1>
+                <Table_icon
+                    size={36}
+                    strokeWidth={2}
+                    color={'#7950f2'}
+                    className="mt-[28px]"
+                />
+            </div>
+            <Table striped
+                sx={(theme) => ({
+                    backgroundColor: theme.colors.gray[1],
+                    // '&:hover': {
+                    //     backgroundColor: theme.colors.violet[1],
+                    // },
+                })}>
+                <thead className='bg-gray-200'>
                     <tr>
                         <th>サービス名</th>
                         <th>支払い期限日</th>
@@ -54,12 +67,20 @@ const Subscription = () => {
                                 <td>{table.subname}</td>
                                 <td>{table.deadline}</td>
                                 <td>{table.pay_period}</td>
-                                <td>{table.membership_fee}</td>
+                                <td>{table.membership_fee.toLocaleString()}</td>
                             </tr>
                         )
                     })}
                 </tbody>
             </Table>
+            <Group position="center" mt="md">
+                <Button variant="light" color="violet" type="submit">
+                    追加
+                </Button>
+                <Button variant="light" color="violet" type="submit">
+                    修正
+                </Button>
+            </Group>
         </div>
     )
 }
