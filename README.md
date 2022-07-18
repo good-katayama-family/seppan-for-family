@@ -1,4 +1,6 @@
-# 折半するよ
+マークダウンの記法
+
+https://www.wakuwakubank.com/posts/861-git-markdown/
 
 ## developにマージする方法
 - developから作業ブランチを作る
