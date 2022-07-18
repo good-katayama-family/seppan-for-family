@@ -46,6 +46,7 @@ const SignIn: NextPage = () => {
     });
     return (
         <Box sx={{ maxWidth: 300 }} mx="auto">
+            <h1 className='text-center'>ログイン</h1>
             <form onSubmit={form.onSubmit((values) => handleSignin(values))}>
                 <TextInput
                     required

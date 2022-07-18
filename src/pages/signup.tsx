@@ -43,6 +43,7 @@ const SignUp: NextPage = () => {
     });
     return (
         <Box sx={{ maxWidth: 300 }} mx="auto">
+            <h1 className='text-center'>新規登録</h1>
             <form onSubmit={form.onSubmit((values) => handleSignin(values))}>
                 <TextInput
                     required
