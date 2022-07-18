@@ -3,7 +3,7 @@ import { Slider, Button, Group, Box, NumberInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useEffect, useState } from "react";
 import { PieChart } from "@component/chart/PieChart";
-import { ReportMoney } from 'tabler-icons-react';
+import { Home as Home_icon, ZoomMoney } from 'tabler-icons-react';
 import { supabase } from "src/lib/supabase/supabase";
 
 export type formValue = {
@@ -144,8 +144,8 @@ const Home: NextPage = () => {
   return (
     <div className="px-20">
       <div className="flex justify-center">
-        <h1 className="text-center">Money Half</h1>
-        <ReportMoney
+        <h1 className="text-center">家計簿</h1>
+        <Home_icon
           size={36}
           strokeWidth={2}
           color={'#7950f2'}
