@@ -43,7 +43,7 @@ const Subscription = () => {
                     <tr>
                         <th>サービス名</th>
                         <th>支払い期限日</th>
-                        <th>支払い周期</th>
+                        <th>プラン</th>
                         <th>料金</th>
                     </tr>
                 </thead>
@@ -53,7 +53,7 @@ const Subscription = () => {
                             <tr key={table.subname}>
                                 <td>{table.subname}</td>
                                 <td>{table.deadline}</td>
-                                <td>{table.pay_period}単位</td>
+                                <td>{table.pay_period}</td>
                                 <td>{table.membership_fee}</td>
                             </tr>
                         )

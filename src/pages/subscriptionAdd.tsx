@@ -31,41 +31,10 @@ const SubscriptionAdd = () => {
             .select()
         console.log(values)
 
-        //存在しないならデータを追加 
-        if (data?.length === 0) {
-            handleInsert(values)
-        } else {
-            handleUpdate(values, data![0].id)
-        }
+        //データを追加 
+        handleInsert(values)
     };
-    //データを更新
-    const handleUpdate = async (values: formValue, id: number) => {
-        const { data, error } = await supabase
-            .from('subscription_management')
-            .update({
-                subname: values.subname,
-                deadline: values.deadline,
-                pay_period: values.pay_period,
-                membership_fee: values.membership_fee
 
-            })
-            .match({ id: id })
-        if (data) {
-            showNotification({
-                disallowClose: true,
-                autoClose: 2000,
-                title: "登録できました！！",
-                message: "",
-                icon: <Check />,
-                color: 'violet',
-                className: 'my-notification-class',
-                loading: false,
-            })
-        }
-    };
-    useEffect(() => {
-
-    });
     //データを追加
     const handleInsert = async (values: formValue) => {
         const { data, error } = await supabase
@@ -78,8 +47,22 @@ const SubscriptionAdd = () => {
                     membership_fee: values.membership_fee
                 }
             ])
-    }
+        if (data) {
+            showNotification({
+                disallowClose: true,
+                autoClose: 2000,
+                title: "登録できました！！",
+                message: "",
+                icon: <Check />,
+                color: 'violet',
+                className: 'my-notification-class',
+                loading: false,
+            })
 
+            form.reset();
+
+        }
+    }
 
     return (
         <div className="w-[200px] m-auto">
@@ -98,11 +81,11 @@ const SubscriptionAdd = () => {
                     {...form.getInputProps('deadline')}
                 />
                 <Select
-                    label="支払い周期"
+                    label="プラン"
                     required
                     data={[
-                        { value: '年', label: '年額' },
-                        { value: '月', label: '月額' },
+                        { value: '年額', label: '年額' },
+                        { value: '月額', label: '月額' },
                     ]}
                     {...form.getInputProps('pay_period')}
                 />
