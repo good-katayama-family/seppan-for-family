@@ -5,6 +5,7 @@ import { useForm } from '@mantine/hooks';
 import { supabase } from 'src/lib/supabase/supabase';
 import { Check } from 'tabler-icons-react';
 import { showNotification } from '@mantine/notifications';
+import Link from 'next/link';
 
 export type formValue = {
     //[key: string]: number | null
@@ -107,6 +108,13 @@ const SubscriptionAdd = () => {
                     <Button variant="light" color="violet" type="submit">
                         登録
                     </Button>
+                    <Link href="/subscription">
+                        <a>
+                            <Button variant="light" color="violet">
+                                戻る
+                            </Button>
+                        </a>
+                    </Link>
                 </Group>
             </form>
 

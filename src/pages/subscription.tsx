@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Group, Table } from '@mantine/core';
-import { Table as Table_icon } from 'tabler-icons-react';
+import { Minus, Plus, Table as Table_icon } from 'tabler-icons-react';
 import { supabase } from 'src/lib/supabase/supabase';
+import Link from "next/link";
 
 export type formValue = {
     //[key: string]: number | null
@@ -74,12 +75,20 @@ const Subscription = () => {
                 </tbody>
             </Table>
             <Group position="center" mt="md">
-                <Button variant="light" color="violet" type="submit">
-                    追加
-                </Button>
-                <Button variant="light" color="violet" type="submit">
-                    修正
-                </Button>
+                <Link href="/subscriptionAdd">
+                    <a><Button variant="light" color="violet" type="submit">
+                        追加
+                    </Button>
+                    </a>
+                </Link>
+                <Link href="">
+                    <a>
+                        <Button variant="light" color="violet" type="submit">
+                            修正
+                        </Button>
+                    </a>
+                </Link>
+
             </Group>
         </div>
     )
