@@ -31,7 +31,7 @@ https://www.wakuwakubank.com/posts/861-git-markdown/
 - TypeScript ---- good-programming-language
 - React.js ---- javascript-library
 - Next.js ---- react-library
-- tailwind.css ---- css
+- tailwind.css ---- css-library
 - Prettier ---- formatter
 - ESLint ---- linter
 - Mantine ---- UI-library
