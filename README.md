@@ -36,3 +36,20 @@ https://www.wakuwakubank.com/posts/861-git-markdown/
 - ESLint ---- linter
 - Mantine ---- UI-library
 - supabase ---- backend
+
+## テーブル
+ - month_of_money
+ 
+項目名|内容|型|キー
+---|---|---|---
+id|ナンバリング|int8|〇
+create_date|作成日|int8|
+rest|家賃|int8|
+utility|光熱費|int8|
+water|水道代|int8|
+food|食費|int8|
+communication|通信費|int8|
+daily|日用品|int8|
+entertainment|交際費|int8|
+others|その他|int8|
+userid|ユーザーID|string|
