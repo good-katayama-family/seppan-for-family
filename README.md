@@ -53,3 +53,12 @@ daily|日用品|int8|
 entertainment|交際費|int8|
 others|その他|int8|
 userid|ユーザーID|string|
+
+ - family
+ 
+項目名|内容|型|キー
+---|---|---|---
+family_code|family_code|int8|〇
+wife|妻ID|string|
+husband|旦那ID|string|
+ratio|割合|int8|
