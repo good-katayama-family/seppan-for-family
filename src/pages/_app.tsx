@@ -1,8 +1,8 @@
 import "src/lib/tailwind.css";
+import Head from "next/head";
 import type { AppProps } from "next/app";
 import { AppShell, Header, MantineProvider, Navbar } from "@mantine/core";
 import { NotificationsProvider } from "@mantine/notifications";
-import Head from "next/head";
 import Link from "next/link";
 import { Home, Login, ReportMoney, Table, WritingSign } from "tabler-icons-react";
 
