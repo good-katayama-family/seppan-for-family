@@ -17,7 +17,7 @@ https://www.wakuwakubank.com/posts/861-git-markdown/
   - git switch ブランチ名 --- 作業ブランチに移動
   - git merge develop --- developを取り込む　
   - コンフリクト解消
-  - commit push
+  - add commit push
   - PR --- プルリクエストの略
   - merge --- ブランチを結合
  
