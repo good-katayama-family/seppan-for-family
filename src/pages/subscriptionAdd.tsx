@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import type { NextPage } from "next";
 import { supabase } from 'src/lib/supabase/supabase';
 import { DatePicker } from '@mantine/dates';
 import { TextInput, Select, NumberInput, Button, Group } from '@mantine/core';
@@ -7,7 +8,7 @@ import { showNotification } from '@mantine/notifications';
 import { TableImport, Check } from 'tabler-icons-react';
 import type { subsType } from "@lib/type/subs.model"
 
-const SubscriptionAdd = () => {
+const SubscriptionAdd: NextPage = () => {
 
     const form = useForm({
         initialValues: {

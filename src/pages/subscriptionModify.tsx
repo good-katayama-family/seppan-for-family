@@ -1,3 +1,4 @@
+import type { NextPage } from "next";
 import React, { useEffect, useState } from 'react'
 import { supabase } from 'src/lib/supabase/supabase';
 import Link from "next/link";
@@ -6,7 +7,7 @@ import { FileDatabase } from 'tabler-icons-react';
 import { Button, Group, Table } from '@mantine/core';
 
 
-const SubscriptionModify = () => {
+const SubscriptionModify: NextPage = () => {
     const [tables, setTables] = useState<subsType[]>()
 
     const getTableData = async () => {

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import React from 'react'
+import React, { FC } from 'react'
 import { Home, Login, Table, WritingSign, BellRinging } from "tabler-icons-react";
 import type { linkType } from '@lib/type/link.model';
 
@@ -12,7 +12,7 @@ const LINK: linkType[] = [
     { url: "/subscriptionMpdify", name: "修正(開発中のみ)", icon: <BellRinging color={'red'} /> },
 ]
 
-export const Sidebar = () => {
+export const Sidebar: FC = () => {
     return (
         <div className="text-left">
             {LINK.map((link) => {

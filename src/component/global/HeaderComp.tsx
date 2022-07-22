@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { FC } from 'react';
 import { ReportMoney } from 'tabler-icons-react'
 
-export const HeaderComp = () => {
+export const HeaderComp: FC = () => {
     return (
         <div className="flex justify-start">
             <span className="text-center font-bold text-[28px] mt-[0px]">Money Half</span>
