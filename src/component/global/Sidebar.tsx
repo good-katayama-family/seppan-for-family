@@ -9,7 +9,8 @@ const LINK: linkType[] = [
     { url: "/signin", name: "サインイン", icon: <Login color={'#7950f2'} /> },
     { url: "/signup", name: "サインアップ", icon: <WritingSign color={'#7950f2'} /> },
     { url: "/subscriptionAdd", name: "追加(開発中のみ)", icon: <BellRinging color={'red'} /> },
-    { url: "/subscriptionMpdify", name: "修正(開発中のみ)", icon: <BellRinging color={'red'} /> },
+    { url: "/subscriptionModify", name: "修正(開発中のみ)", icon: <BellRinging color={'red'} /> },
+    { url: "/abcdefg", name: "404(開発中のみ)", icon: <BellRinging color={'red'} /> },
 ]
 
 export const Sidebar: FC = () => {
