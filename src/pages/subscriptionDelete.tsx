@@ -14,6 +14,7 @@ export type formValue = {
 }
 
 type table = {
+    id: number,
     subname: string,
     deadline: string,
     membership_fee: number,
@@ -30,13 +31,45 @@ const SubscriptionDelete = () => {
 
         setTables(data as table[])
     }
+    const handleDelete = async (id: number) => {
+        const { data, error } = await supabase
+            .from('subscription_management')
+            .delete()
+            .match({ id: id })
+    }
 
     useEffect(() => {
-        getTableData()
+        getTableData();
+        // subscriptionを生成
+        const subscription = supabase
+            .from('subscription_management')
+            // .onの第一引数には'INSERT'や'UPDATE'などアクションを限定して指定することも可能
+            .on('*', (payload) => {
+                getTableData();
+                console.log('Change received!', payload);
+            })
+            .subscribe();
+
+        return () => {
+            // アンマウント時にsubscriptionを解除
+            if (subscription) {
+                supabase.removeSubscription(subscription);
+            }
+        };
+
     }, [])
 
+    // const realTime = () =á {
+    //     const mySubscription = supabase
+    //         .from('*')
+    //         .on('*', payload => {
+    //             console.log('Change received!', payload)
+    //         })
+    //         .subscribe()
+    // }
+
     return (
-        <div className="w-[400px] m-auto">
+        <div className="w-[500px] m-auto">
             <div className='flex justify-center'>
                 <h1 className='text-center'>サブスク修正・削除</h1>
                 <FileDatabase
@@ -59,16 +92,18 @@ const SubscriptionDelete = () => {
                         <th>支払い期限日</th>
                         <th>プラン</th>
                         <th>料金</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     {tables?.map((table: table) => {
                         return (
-                            <tr key={table.subname}>
+                            <tr key={table.id}>
                                 <td>{table.subname}</td>
                                 <td>{table.deadline}</td>
                                 <td>{table.pay_period}</td>
                                 <td>{table.membership_fee.toLocaleString()}</td>
+                                <td><Button variant="light" color="violet" onClick={() => handleDelete(table.id)}>×</Button></td>
                             </tr>
                         )
                     })}

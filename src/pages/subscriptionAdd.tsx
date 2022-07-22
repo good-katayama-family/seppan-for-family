@@ -25,43 +25,66 @@ const SubscriptionAdd = () => {
             membership_fee: 0
         },
     });
+
     const handleSet = async (values: formValue) => {
-        const { data, error } = await supabase
-            .from('subscription_management')
-            .select()
+        // const { data, error } = await supabase
+        //     .from('subscription_management')
+        //     .select()
         console.log(values)
 
+
+
         //データを追加 
-        handleInsert(values)
+        handleInsert(values, 1)
     };
 
+
+
     //データを追加
-    const handleInsert = async (values: formValue) => {
-        const { data, error } = await supabase
-            .from('subscription_management')
-            .insert([
-                {
-                    subname: values.subname,
-                    deadline: values.deadline,
-                    pay_period: values.pay_period,
-                    membership_fee: values.membership_fee
-                }
-            ])
-        if (data) {
-            showNotification({
-                disallowClose: true,
-                autoClose: 2000,
-                title: "登録できました！！",
-                message: "",
-                icon: <Check />,
-                color: 'violet',
-                className: 'my-notification-class',
-                loading: false,
-            })
-
-            form.reset();
-
+    const handleInsert = async (values: formValue, times: number) => {
+        for (let i = 0; i < times; i++) {
+            const { data, error } = await supabase
+                .from('subscription_management')
+                .insert([
+                    {
+                        subname: values.subname,
+                        deadline: values.deadline,
+                        pay_period: values.pay_period,
+                        membership_fee: values.membership_fee
+                    }
+                ])
+            if (data) {
+                showNotification({
+                    disallowClose: true,
+                    autoClose: 2000,
+                    title: "登録できました！！",
+                    message: "",
+                    icon: <Check />,
+                    color: 'violet',
+                    className: 'my-notification-class',
+                    loading: false,
+                })
+            } else if (error) {
+                showNotification({
+                    disallowClose: true,
+                    autoClose: 2000,
+                    title: error.message,
+                    message: "",
+                    icon: <Check />,
+                    color: 'violet',
+                    className: 'my-notification-class',
+                    loading: false,
+                })
+            }
         }
+        form.reset();
+        form.setFieldValue('deadline', '');
+    }
+
+    const tentimes = (values: formValue) => {
+        //for (let i = 0; i < 10; i++) {
+        handleInsert(values, 20)
+        //}
     }
 
     return (
@@ -86,6 +109,8 @@ const SubscriptionAdd = () => {
                     required
                     placeholder={""}
                     label="支払い期限日"
+                    onDropdownClose={() => { console.log("ddd") }}
+                    clearable={true}
                     {...form.getInputProps('deadline')}
                 />
                 <Select
@@ -115,6 +140,9 @@ const SubscriptionAdd = () => {
                             </Button>
                         </a>
                     </Link>
+                    <Button variant="filled" color="red" onClick={form.onSubmit((values) => tentimes(values))}>
+                        開発中のみ20個のデータを送る
+                    </Button>
                 </Group>
             </form>
 
