@@ -1,14 +1,15 @@
 import Link from 'next/link';
 import React from 'react'
-import { Home, Login, ReportMoney, Table, WritingSign } from "tabler-icons-react";
+import { Home, Login, Table, WritingSign, BellRinging } from "tabler-icons-react";
 import type { linkType } from '@lib/type/link.model';
 
 const LINK: linkType[] = [
     { url: "/", name: "家計簿", icon: <Home color={'#7950f2'} /> },
     { url: "/subscription", name: "サブスク管理", icon: <Table color={'#7950f2'} /> },
-    // { url: "/subscriptionAdd", name: "サブスク登録" , icon: <ReportMoney/>},
     { url: "/signin", name: "サインイン", icon: <Login color={'#7950f2'} /> },
     { url: "/signup", name: "サインアップ", icon: <WritingSign color={'#7950f2'} /> },
+    { url: "/subscriptionAdd", name: "追加(開発中のみ)", icon: <BellRinging color={'red'} /> },
+    { url: "/subscriptionMpdify", name: "修正(開発中のみ)", icon: <BellRinging color={'red'} /> },
 ]
 
 export const Sidebar = () => {
