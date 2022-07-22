@@ -4,7 +4,6 @@ import { Check, TableImport } from 'tabler-icons-react';
 import { DatePicker } from '@mantine/dates';
 import { useForm } from '@mantine/hooks';
 import { supabase } from 'src/lib/supabase/supabase';
-import { formValue } from '@pages/';
 import { showNotification } from '@mantine/notifications';
 export type formValue = {
     //[key: string]: number | null
