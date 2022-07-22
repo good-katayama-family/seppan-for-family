@@ -21,8 +21,11 @@ https://www.wakuwakubank.com/posts/861-git-markdown/
   - PR --- プルリクエストの略
   - merge --- ブランチを結合
  
- 
  ##### developからmainへのマージはkatayama8000がやるよ
+ 
+ ### その他よく使うgitコマンド
+  - git branch -D ブランチ名 --- ブランチを削除
+  - git branch -m ブランチ名 --- ブランチ名を変更
  
  
   
