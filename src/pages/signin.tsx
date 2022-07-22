@@ -4,6 +4,7 @@ import { useForm } from "@mantine/form";
 import { TextInput, Button, Group, Box, PasswordInput } from "@mantine/core";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { Login } from "tabler-icons-react";
 
 
 //emailで認証しなければならないらしい
@@ -46,6 +47,15 @@ const SignIn: NextPage = () => {
     });
     return (
         <Box sx={{ maxWidth: 300 }} mx="auto">
+            <div className='flex justify-center'>
+                <h1 className='text-center'>ログイン</h1>
+                <Login
+                    size={36}
+                    strokeWidth={2}
+                    color={'#7950f2'}
+                    className="mt-[28px]"
+                />
+            </div>
             <form onSubmit={form.onSubmit((values) => handleSignin(values))}>
                 <TextInput
                     required
