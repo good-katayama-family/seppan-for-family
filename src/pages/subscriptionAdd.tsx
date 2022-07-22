@@ -1,32 +1,24 @@
+import Link from 'next/link';
+import { supabase } from 'src/lib/supabase/supabase';
 import { DatePicker } from '@mantine/dates';
 import { TextInput, Select, NumberInput, Button, Group } from '@mantine/core';
-import { TableImport } from 'tabler-icons-react';
 import { useForm } from '@mantine/hooks';
-import { supabase } from 'src/lib/supabase/supabase';
-import { Check } from 'tabler-icons-react';
 import { showNotification } from '@mantine/notifications';
-import Link from 'next/link';
-
-export type formValue = {
-    //[key: string]: number | null
-    subname: string | null;
-    deadline: string | null;
-    pay_period: string | null;
-    membership_fee: number | null;
-}
+import { TableImport, Check } from 'tabler-icons-react';
+import type { subsType } from "@lib/type/subs.model"
 
 const SubscriptionAdd = () => {
 
     const form = useForm({
         initialValues: {
-            subname: "",
+            subsname: "",
             deadline: "",
             pay_period: "",
             membership_fee: 0
         },
     });
 
-    const handleSet = async (values: formValue) => {
+    const handleSet = async (values: subsType) => {
         // const { data, error } = await supabase
         //     .from('subscription_management')
         //     .select()
@@ -41,13 +33,13 @@ const SubscriptionAdd = () => {
 
 
     //データを追加
-    const handleInsert = async (values: formValue, times: number) => {
+    const handleInsert = async (values: subsType, times: number) => {
         for (let i = 0; i < times; i++) {
             const { data, error } = await supabase
                 .from('subscription_management')
                 .insert([
                     {
-                        subname: values.subname,
+                        subname: values.subsname,
                         deadline: values.deadline,
                         pay_period: values.pay_period,
                         membership_fee: values.membership_fee
@@ -81,10 +73,8 @@ const SubscriptionAdd = () => {
         form.setFieldValue('deadline', '');
     }
 
-    const tentimes = (values: formValue) => {
-        //for (let i = 0; i < 10; i++) {
+    const tentimes = (values: subsType) => {
         handleInsert(values, 20)
-        //}
     }
 
     return (
@@ -103,7 +93,7 @@ const SubscriptionAdd = () => {
                 <TextInput
                     required
                     label="サービス名"
-                    {...form.getInputProps('subname')}
+                    {...form.getInputProps('subsname')}
                 />
                 <DatePicker
                     required

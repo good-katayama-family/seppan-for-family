@@ -1,3 +1,4 @@
+//難しいのでいったん保留
 import { useForm, formList } from '@mantine/form';
 import { TextInput, Switch, Group, ActionIcon, Box, Text, Button, Code } from '@mantine/core';
 import { randomId } from '@mantine/hooks';

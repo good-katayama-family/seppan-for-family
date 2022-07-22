@@ -1,9 +1,10 @@
+import { useRouter } from "next/router";
 import { NextPage } from "next";
+import { useState } from "react";
 import { supabase } from "../lib/supabase/supabase";
 import { useForm } from "@mantine/form";
 import { TextInput, Button, Group, Box, PasswordInput } from "@mantine/core";
-import { useState } from "react";
-import { useRouter } from "next/router";
+
 import { Login } from "tabler-icons-react";
 
 

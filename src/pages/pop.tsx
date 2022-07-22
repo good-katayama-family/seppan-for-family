@@ -5,6 +5,7 @@ import { DatePicker } from '@mantine/dates';
 import { useForm } from '@mantine/hooks';
 import { supabase } from 'src/lib/supabase/supabase';
 import { showNotification } from '@mantine/notifications';
+
 export type formValue = {
     //[key: string]: number | null
     subname: string | null;
@@ -12,6 +13,7 @@ export type formValue = {
     pay_period: string | null;
     membership_fee: number | null;
 }
+
 const Pop = () => {
     const [opened, setOpened] = useState(false);
     const form = useForm({

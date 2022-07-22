@@ -1,35 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Group, Table } from '@mantine/core';
-import { FileDatabase } from 'tabler-icons-react';
 import { supabase } from 'src/lib/supabase/supabase';
 import Link from "next/link";
+import type { subsType } from "@lib/type/subs.model"
+import { FileDatabase } from 'tabler-icons-react';
+import { Button, Group, Table } from '@mantine/core';
 
-export type formValue = {
-    //[key: string]: number | null
-    id: number;
-    subname: string | null;
-    deadline: string | null;
-    pay_period: string | null;
-    membership_fee: number | null;
-}
 
-type table = {
-    id: number,
-    subname: string,
-    deadline: string,
-    membership_fee: number,
-    pay_period: string
-}
-
-const SubscriptionDelete = () => {
-    const [tables, setTables] = useState<table[]>()
+const SubscriptionModify = () => {
+    const [tables, setTables] = useState<subsType[]>()
 
     const getTableData = async () => {
         const { data, error } = await supabase
             .from('subscription_management')
             .select()
 
-        setTables(data as table[])
+        setTables(data as subsType[])
     }
     const handleDelete = async (id: number) => {
         const { data, error } = await supabase
@@ -59,14 +44,6 @@ const SubscriptionDelete = () => {
 
     }, [])
 
-    // const realTime = () =á {
-    //     const mySubscription = supabase
-    //         .from('*')
-    //         .on('*', payload => {
-    //             console.log('Change received!', payload)
-    //         })
-    //         .subscribe()
-    // }
 
     return (
         <div className="w-[500px] m-auto">
@@ -96,14 +73,14 @@ const SubscriptionDelete = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {tables?.map((table: table) => {
+                    {tables?.map((table: subsType) => {
                         return (
                             <tr key={table.id}>
-                                <td>{table.subname}</td>
+                                <td>{table.subsname}</td>
                                 <td>{table.deadline}</td>
                                 <td>{table.pay_period}</td>
                                 <td>{table.membership_fee.toLocaleString()}</td>
-                                <td><Button variant="light" color="violet" onClick={() => handleDelete(table.id)}>×</Button></td>
+                                <td><Button variant="light" color="violet" onClick={() => handleDelete(table.id!)}>×</Button></td>
                             </tr>
                         )
                     })}
@@ -122,4 +99,4 @@ const SubscriptionDelete = () => {
     )
 }
 
-export default SubscriptionDelete
+export default SubscriptionModify

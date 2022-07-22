@@ -1,27 +1,18 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import type { NextPage } from "next";
+import { useEffect, useState } from "react";
+import { supabase } from "src/lib/supabase/supabase";
 import { Slider, Button, Group, Box, NumberInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import { useEffect, useState } from "react";
-import { PieChart } from "@component/chart/PieChart";
-import { Home as Home_icon, ZoomMoney } from 'tabler-icons-react';
-import { supabase } from "src/lib/supabase/supabase";
+import { Home as Home_icon } from 'tabler-icons-react';
+import { PieChart } from "src/component/chart/PieChart";
+import type { costFormType } from "@lib/type/costForm.model"
 
-export type formValue = {
-  //[key: string]: number | null
-  rent: number | null;
-  utilityCost: number | null;
-  waterCost: number | null;
-  foodCost: number | null;
-  communicationCost: number | null;
-  dailyCost: number | null;
-  entertainmentCost: number | null;
-  othersCost: number | null;
-}
 
 const Home: NextPage = () => {
   const [sumMoney, setSumMoney] = useState<number | null>(0)
   const [sumMoneyHalf, setSumMoneyHalf] = useState<number>(0)
-  const [ratioOfpayment, setRatioOfpayment] = useState<formValue>()
+  const [ratioOfpayment, setRatioOfpayment] = useState<costFormType>()
   const [ratio, setRatio] = useState(5);
 
 
@@ -38,7 +29,7 @@ const Home: NextPage = () => {
     },
   });
 
-  const handleSum = async (values: formValue) => {
+  const handleSum = async (values: costFormType) => {
     let sum = [
       values.rent,
       values.utilityCost,
@@ -67,7 +58,7 @@ const Home: NextPage = () => {
   };
 
   //データを更新
-  const handleUpdate = async (values: formValue, id: number) => {
+  const handleUpdate = async (values: costFormType, id: number) => {
     const { data, error } = await supabase
       .from('month_of_cost')
       .update({
@@ -84,7 +75,7 @@ const Home: NextPage = () => {
   }
 
   //データを追加
-  const handleInsert = async (values: formValue) => {
+  const handleInsert = async (values: costFormType) => {
     const { data, error } = await supabase
       .from('month_of_cost')
       .insert([

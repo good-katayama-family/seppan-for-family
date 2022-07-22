@@ -1,34 +1,22 @@
-import React, { useEffect, useState } from 'react'
-import { Button, Group, Table } from '@mantine/core';
-import { Minus, Plus, Table as Table_icon } from 'tabler-icons-react';
-import { supabase } from 'src/lib/supabase/supabase';
 import Link from "next/link";
+import React, { useEffect, useState } from 'react'
+import { supabase } from 'src/lib/supabase/supabase';
+import { Button, Group, Table } from '@mantine/core';
+import { Table as Table_icon } from 'tabler-icons-react';
+import type { subsFormType } from "@lib/type/subsForm.model"
+import type { subsType } from "@lib/type/subs.model"
 
-export type formValue = {
-    //[key: string]: number | null
-    id: number;
-    subname: string | null;
-    deadline: string | null;
-    pay_period: string | null;
-    membership_fee: number | null;
-}
 
-type table = {
-    subname: string,
-    deadline: string,
-    membership_fee: number,
-    pay_period: string
-}
 
 const Subscription = () => {
-    const [tables, setTables] = useState<table[]>()
+    const [tables, setTables] = useState<subsType[]>()
 
     const getTableData = async () => {
         const { data, error } = await supabase
             .from('subscription_management')
             .select()
 
-        setTables(data as table[])
+        setTables(data as subsType[])
     }
 
     useEffect(() => {
@@ -62,10 +50,10 @@ const Subscription = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {tables?.map((table: table) => {
+                    {tables?.map((table: subsType) => {
                         return (
-                            <tr key={table.subname}>
-                                <td>{table.subname}</td>
+                            <tr key={table.id}>
+                                <td>{table.subsname}</td>
                                 <td>{table.deadline}</td>
                                 <td>{table.pay_period}</td>
                                 <td>{table.membership_fee.toLocaleString()}</td>
@@ -82,7 +70,7 @@ const Subscription = () => {
                         </Button>
                     </a>
                 </Link>
-                <Link href="/subscriptionDelete">
+                <Link href="/subscriptionModify">
                     <a>
                         <Button variant="light" color="violet" type="submit">
                             修正

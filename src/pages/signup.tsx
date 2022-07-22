@@ -1,8 +1,8 @@
 import { NextPage } from "next";
 import { supabase } from "../lib/supabase/supabase";
+import { useState } from "react";
 import { useForm } from "@mantine/form";
 import { TextInput, Button, Group, Box, PasswordInput } from "@mantine/core";
-import { useState } from "react";
 import { WritingSign } from "tabler-icons-react";
 
 
