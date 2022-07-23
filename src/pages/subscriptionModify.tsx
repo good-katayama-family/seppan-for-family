@@ -45,6 +45,13 @@ const SubscriptionModify: NextPage = () => {
 
     }, [])
 
+    const demo = async () => {
+        const { data, error } = await supabase
+            .from('subscription_management')
+            .delete()
+            .match({ id: 30 })
+    }
+
 
     return (
         <div className="w-[500px] m-auto">
@@ -96,6 +103,10 @@ const SubscriptionModify: NextPage = () => {
                     </a>
                 </Link>
             </Group>
+
+            <Button variant="filled" color="red" onClick={() => demo()}>
+                デモ
+            </Button>
         </div>
     )
 }
