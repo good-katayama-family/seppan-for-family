@@ -24,9 +24,6 @@ const SubscriptionAdd: NextPage = () => {
         //     .from('subscription_management')
         //     .select()
         console.log(values)
-
-
-
         //データを追加 
         handleInsert(values, 1)
     };

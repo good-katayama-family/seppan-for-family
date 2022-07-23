@@ -29,7 +29,6 @@ const Pop = () => {
             .from('subscription_management')
             .select()
         console.log(values)
-
         //データを追加 
         handleInsert(values)
     };
@@ -56,9 +55,7 @@ const Pop = () => {
                 className: 'my-notification-class',
                 loading: false,
             })
-
             form.reset();
-
         }
     }
 
@@ -79,7 +76,6 @@ const Pop = () => {
                             color={'#7950f2'}
                             className="mt-[28px]"
                         />
-
                     </div>
                     <form onSubmit={form.onSubmit((values) => handleSet(values))}>
                         <TextInput

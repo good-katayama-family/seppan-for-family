@@ -2,19 +2,18 @@
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
 import { supabase } from "src/lib/supabase/supabase";
-import { Slider, Button, Group, Box, NumberInput } from '@mantine/core';
+import { Slider, Button, Group, Box, NumberInput, Grid } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { Home as Home_icon } from 'tabler-icons-react';
 import { PieChart } from "src/component/chart/PieChart";
 import type { costFormType } from "@lib/type/costForm.model"
-
+import { householdList } from "@lib/constant/cost.const"
 
 const Home: NextPage = () => {
   const [sumMoney, setSumMoney] = useState<number | null>(0)
   const [sumMoneyHalf, setSumMoneyHalf] = useState<number>(0)
   const [ratioOfpayment, setRatioOfpayment] = useState<costFormType>()
   const [ratio, setRatio] = useState(5);
-
 
   const form = useForm({
     initialValues: {
@@ -96,7 +95,8 @@ const Home: NextPage = () => {
     const { data, error } = await supabase
       .from('month_of_cost')
       .select()
-    let pastSum =
+
+    const pastSum =
       data![0].rent +
       data![0].utility +
       data![0].water +
@@ -157,64 +157,23 @@ const Home: NextPage = () => {
           ]}
         />
       </div>
-      <Box sx={{ maxWidth: 300 }} mx="auto">
+      <Box sx={{ maxWidth: 480 }} mx="auto">
         <form onSubmit={form.onSubmit((values) => handleSum(values))}>
-          <NumberInput
-            required
-            hideControls={true}
-            label="家賃"
-            placeholder="56000"
-            {...form.getInputProps('rent')}
-          />
-          <NumberInput
-            required
-            hideControls={true}
-            label="光熱費"
-            placeholder="8000"
-            {...form.getInputProps('utilityCost')}
-          />
-          <NumberInput
-            required
-            hideControls={true}
-            label="水道"
-            placeholder="1000"
-            {...form.getInputProps('waterCost')}
-          />
-          <NumberInput
-            required
-            hideControls={true}
-            label="食費"
-            placeholder="20000"
-            {...form.getInputProps('foodCost')}
-          />
-          <NumberInput
-            required
-            hideControls={true}
-            label="通信費"
-            placeholder="4500"
-            {...form.getInputProps('communicationCost')}
-          />
-          <NumberInput
-            required
-            hideControls={true}
-            label="日用品費"
-            placeholder="3800"
-            {...form.getInputProps('dailyCost')}
-          />
-          <NumberInput
-            required
-            hideControls={true}
-            label="交際費"
-            placeholder="15000"
-            {...form.getInputProps('entertainmentCost')}
-          />
-          <NumberInput
-            required
-            hideControls={true}
-            label="その他"
-            placeholder="1200"
-            {...form.getInputProps('othersCost')}
-          />
+          <Grid>
+            {householdList.map((cost, index) => {
+              return (
+                <Grid.Col span={6} key={cost.label}>
+                  <NumberInput
+                    required
+                    hideControls={true}
+                    label={cost.label}
+                    placeholder={cost.placeholder}
+                    {...form.getInputProps(cost.form)}
+                  />
+                </Grid.Col>
+              )
+            })}
+          </Grid>
           <Group position="center" mt="md">
             <Button type="submit" variant="light" color="violet">合計</Button>
           </Group>
