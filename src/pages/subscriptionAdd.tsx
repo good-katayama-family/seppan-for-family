@@ -12,13 +12,14 @@ const SubscriptionAdd: NextPage = () => {
 
     const form = useForm({
         initialValues: {
-            subsname: "",
-            deadline: "",
+            subname: "",
+            deadline: null,
             pay_period: "",
             membership_fee: 0
         },
     });
 
+    //データが何も入っていないときは別の処理が必要
     const handleSet = async (values: subsType) => {
         // const { data, error } = await supabase
         //     .from('subscription_management')
@@ -28,8 +29,6 @@ const SubscriptionAdd: NextPage = () => {
         handleInsert(values, 1)
     };
 
-
-
     //データを追加
     const handleInsert = async (values: subsType, times: number) => {
         for (let i = 0; i < times; i++) {
@@ -37,7 +36,7 @@ const SubscriptionAdd: NextPage = () => {
                 .from('subscription_management')
                 .insert([
                     {
-                        subname: values.subsname,
+                        subname: values.subname,
                         deadline: values.deadline,
                         pay_period: values.pay_period,
                         membership_fee: values.membership_fee
@@ -68,7 +67,6 @@ const SubscriptionAdd: NextPage = () => {
             }
         }
         form.reset();
-        form.setFieldValue('deadline', '');
     }
 
     const tentimes = (values: subsType) => {
@@ -91,7 +89,7 @@ const SubscriptionAdd: NextPage = () => {
                 <TextInput
                     required
                     label="サービス名"
-                    {...form.getInputProps('subsname')}
+                    {...form.getInputProps('subname')}
                 />
                 <DatePicker
                     required

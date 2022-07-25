@@ -4,24 +4,36 @@ import React, { useEffect, useState } from 'react'
 import { supabase } from 'src/lib/supabase/supabase';
 import { Button, Group, Table } from '@mantine/core';
 import { Table as Table_icon } from 'tabler-icons-react';
-import type { subsFormType } from "@lib/type/subsForm.model"
+// import type { subsFormType } from "@lib/type/subsForm.model"
 import type { subsType } from "@lib/type/subs.model"
+import dayjs from "dayjs"
 
 
 
 const Subscription: NextPage = () => {
-    const [tables, setTables] = useState<subsType[]>()
+    const [subsData, setSubsData] = useState<subsType[]>()
 
-    const getTableData = async () => {
-        const { data, error } = await supabase
-            .from('subscription_management')
-            .select()
-
-        setTables(data as subsType[])
+    const getSubsData = async () => {
+        try {
+            const { data, error } = await supabase
+                .from('subscription_management')
+                .select()
+            const subsData = data?.map((item) => {
+                const deadline = dayjs(item.deadline).format("YYYY/MM/DD")
+                return { ...item, deadline }
+            })
+            console.log(subsData)
+            if (error) {
+                alert("もう一回やり直してください")
+            }
+            setSubsData(subsData as subsType[])
+        } catch (e) {
+            alert("error")
+        }
     }
 
     useEffect(() => {
-        getTableData()
+        getSubsData()
     }, [])
 
     return (
@@ -51,10 +63,10 @@ const Subscription: NextPage = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {tables?.map((table: subsType) => {
+                    {subsData?.map((table: subsType) => {
                         return (
                             <tr key={table.id}>
-                                <td>{table.subsname}</td>
+                                <td>{table.subname}</td>
                                 <td>{table.deadline}</td>
                                 <td>{table.pay_period}</td>
                                 <td>{table.membership_fee.toLocaleString()}</td>
