@@ -5,18 +5,29 @@ import Link from "next/link";
 import type { subsType } from "@lib/type/subs.model"
 import { FileDatabase } from 'tabler-icons-react';
 import { Button, Group, Table } from '@mantine/core';
+import dayjs from "dayjs"
 
 
 const SubscriptionModify: NextPage = () => {
     const [tables, setTables] = useState<subsType[]>()
 
-    const getTableData = async () => {
+    const getSubsData = async () => {
         const { data, error } = await supabase
             .from('subscription_management')
             .select()
 
-        setTables(data as subsType[])
+
+        const subsData = data?.map((item) => {
+            const deadline = dayjs(item.deadline).format("YYYY/MM/DD")
+            return { ...item, deadline }
+        })
+
+        if (error) {
+            alert("もう一回やり直してください")
+        }
+        setTables(subsData as subsType[])
     }
+
     const handleDelete = async (id: number) => {
         const { data, error } = await supabase
             .from('subscription_management')
@@ -25,13 +36,13 @@ const SubscriptionModify: NextPage = () => {
     }
 
     useEffect(() => {
-        getTableData();
+        getSubsData();
         // subscriptionを生成
         const subscription = supabase
             .from('subscription_management')
             // .onの第一引数には'INSERT'や'UPDATE'などアクションを限定して指定することも可能
             .on('*', (payload) => {
-                getTableData();
+                getSubsData();
                 console.log('Change received!', payload);
             })
             .subscribe();
@@ -44,13 +55,6 @@ const SubscriptionModify: NextPage = () => {
         };
 
     }, [])
-
-    const demo = async () => {
-        const { data, error } = await supabase
-            .from('subscription_management')
-            .delete()
-            .match({ id: 30 })
-    }
 
 
     return (
@@ -84,7 +88,7 @@ const SubscriptionModify: NextPage = () => {
                     {tables?.map((table: subsType) => {
                         return (
                             <tr key={table.id}>
-                                <td>{table.subsname}</td>
+                                <td>{table.subname}</td>
                                 <td>{table.deadline}</td>
                                 <td>{table.pay_period}</td>
                                 <td>{table.membership_fee.toLocaleString()}</td>
@@ -103,10 +107,6 @@ const SubscriptionModify: NextPage = () => {
                     </a>
                 </Link>
             </Group>
-
-            <Button variant="filled" color="red" onClick={() => demo()}>
-                デモ
-            </Button>
         </div>
     )
 }
