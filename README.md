@@ -41,11 +41,14 @@ https://www.wakuwakubank.com/posts/861-git-markdown/
 - supabase ---- backend
 
 ## テーブル
+ ◎ --- 主キー　
+ △ --- 外部キー 
+ 
  - month_of_money
  
 項目名|内容|型|キー
 ---|---|---|---
-id|primary-key|int8|〇
+id|primary-key|int8|◎
 create_date|作成日|int8|
 rent|家賃|int8|
 utility|光熱費|int8|
@@ -55,13 +58,23 @@ communication|通信費|int8|
 daily|日用品|int8|
 entertainment|交際費|int8|
 others|その他|int8|
-userid|ユーザーID|string|
+userid|ユーザーID|string|△
 
  - family
  
 項目名|内容|型|キー
 ---|---|---|---
-family_code|family_code|int8|〇
+family_code|ファミリーコード|string|◎
 wife|妻ID|string|
 husband|旦那ID|string|
 ratio|割合|int8|
+
+ - userinfo
+ 
+項目名|内容|型|キー
+---|---|---|---
+userid|ユーザーID|string|◎
+username|ユーザー名|string|
+password|パスワード|string|
+family_code|ファミリーコード|string|△
+
