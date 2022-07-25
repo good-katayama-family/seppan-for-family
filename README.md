@@ -65,8 +65,8 @@ userid|ユーザーID|string|△
 項目名|内容|型|キー
 ---|---|---|---
 family_code|ファミリーコード|string|◎
-wife|妻ID|string|
-husband|旦那ID|string|
+wife|妻ユーザーID|string|△
+husband|旦那ユーザーID|string|△
 ratio|割合|int8|
 
  - userinfo
@@ -77,4 +77,17 @@ userid|ユーザーID|string|◎
 username|ユーザー名|string|
 password|パスワード|string|
 family_code|ファミリーコード|string|△
+
+
+ - subscription_management
+ 
+項目名|内容|型|キー
+---|---|---|---
+id|ユーザーID|int8|◎
+creat_at|作成日|date|
+userid|ユーザーID|string|△
+subname|サブスクリプション|string|
+deadline|締日|date|
+membership_fee|会費|int8|
+pay_period|支払い周期|string|
 
