@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react'
 import { supabase } from 'src/lib/supabase/supabase';
 import { Button, Group, Table } from '@mantine/core';
 import { Table as Table_icon } from 'tabler-icons-react';
-// import type { subsFormType } from "@lib/type/subsForm.model"
 import type { subsType } from "@lib/type/subs.model"
 import dayjs from "dayjs"
 
@@ -63,13 +62,13 @@ const Subscription: NextPage = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {subsData?.map((table: subsType) => {
+                    {subsData?.map((data: subsType) => {
                         return (
-                            <tr key={table.id}>
-                                <td>{table.subname}</td>
-                                <td>{table.deadline}</td>
-                                <td>{table.pay_period}</td>
-                                <td>{table.membership_fee.toLocaleString()}</td>
+                            <tr key={data.id}>
+                                <td>{data.subname}</td>
+                                <td>{data.deadline}</td>
+                                <td>{data.pay_period}</td>
+                                <td>{data.membership_fee.toLocaleString()}</td>
                             </tr>
                         )
                     })}

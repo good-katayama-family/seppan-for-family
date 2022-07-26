@@ -32,32 +32,46 @@ const SubscriptionAdd: NextPage = () => {
     //データを追加
     const handleInsert = async (values: subsType, times: number) => {
         for (let i = 0; i < times; i++) {
-            const { data, error } = await supabase
-                .from('subscription_management')
-                .insert([
-                    {
-                        subname: values.subname,
-                        deadline: values.deadline,
-                        pay_period: values.pay_period,
-                        membership_fee: values.membership_fee
-                    }
-                ])
-            if (data) {
+            try {
+
+                const { data, error } = await supabase
+                    .from('subscription_management')
+                    .insert([
+                        {
+                            subname: values.subname,
+                            deadline: values.deadline,
+                            pay_period: values.pay_period,
+                            membership_fee: values.membership_fee
+                        }
+                    ])
+                if (data) {
+                    showNotification({
+                        disallowClose: true,
+                        autoClose: 2000,
+                        title: "登録できました！！",
+                        message: "",
+                        icon: <Check />,
+                        color: 'violet',
+                        className: 'my-notification-class',
+                        loading: false,
+                    })
+                } else if (error) {
+                    showNotification({
+                        disallowClose: true,
+                        autoClose: 2000,
+                        title: error.message,
+                        message: "",
+                        icon: <Check />,
+                        color: 'violet',
+                        className: 'my-notification-class',
+                        loading: false,
+                    })
+                }
+            } catch (e) {
                 showNotification({
                     disallowClose: true,
                     autoClose: 2000,
-                    title: "登録できました！！",
-                    message: "",
-                    icon: <Check />,
-                    color: 'violet',
-                    className: 'my-notification-class',
-                    loading: false,
-                })
-            } else if (error) {
-                showNotification({
-                    disallowClose: true,
-                    autoClose: 2000,
-                    title: error.message,
+                    title: "登録できませんでした",
                     message: "",
                     icon: <Check />,
                     color: 'violet',
@@ -65,6 +79,7 @@ const SubscriptionAdd: NextPage = () => {
                     loading: false,
                 })
             }
+
         }
         form.reset();
     }

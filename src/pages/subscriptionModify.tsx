@@ -9,7 +9,7 @@ import dayjs from "dayjs"
 
 
 const SubscriptionModify: NextPage = () => {
-    const [tables, setTables] = useState<subsType[]>()
+    const [subsData, setSubsData] = useState<subsType[]>()
 
     const getSubsData = async () => {
         const { data, error } = await supabase
@@ -25,7 +25,7 @@ const SubscriptionModify: NextPage = () => {
         if (error) {
             alert("もう一回やり直してください")
         }
-        setTables(subsData as subsType[])
+        setSubsData(subsData as subsType[])
     }
 
     const handleDelete = async (id: number) => {
@@ -85,14 +85,14 @@ const SubscriptionModify: NextPage = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {tables?.map((table: subsType) => {
+                    {subsData?.map((data: subsType) => {
                         return (
-                            <tr key={table.id}>
-                                <td>{table.subname}</td>
-                                <td>{table.deadline}</td>
-                                <td>{table.pay_period}</td>
-                                <td>{table.membership_fee.toLocaleString()}</td>
-                                <td><Button variant="light" color="violet" onClick={() => handleDelete(table.id!)}>×</Button></td>
+                            <tr key={data.id}>
+                                <td>{data.subname}</td>
+                                <td>{data.deadline}</td>
+                                <td>{data.pay_period}</td>
+                                <td>{data.membership_fee.toLocaleString()}</td>
+                                <td><Button variant="light" color="violet" onClick={() => handleDelete(data.id!)}>×</Button></td>
                             </tr>
                         )
                     })}
