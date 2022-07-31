@@ -24,8 +24,9 @@ https://www.wakuwakubank.com/posts/861-git-markdown/
  ##### developからmainへのマージはkatayama8000がやるよ
  
  ### その他よく使うgitコマンド
-  - git branch -D ブランチ名 --- ブランチを削除
-  - git branch -m ブランチ名 --- ブランチ名を変更
+  - git branch -D ブランチ名 --- ローカルブランチを削除
+  - git branch -m ブランチ名 --- ローカルブランチ名を変更
+  - git push --delete origin ブランチ名 --- リモートブランチを削除
  
  
   
