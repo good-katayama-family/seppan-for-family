@@ -28,6 +28,7 @@ https://www.wakuwakubank.com/posts/861-git-markdown/
   - git branch -m ブランチ名 --- ローカルブランチ名を変更
   - git push --delete origin ブランチ名 --- リモートブランチを削除
   - git branch -a --- リモートブランチを確認
+  - git fetch origin pull/12/head:PR-12 --- PRを確認するためにローカルに持ってくる
  
  
   
