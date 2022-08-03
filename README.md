@@ -30,7 +30,7 @@ https://www.wakuwakubank.com/posts/861-git-markdown/
  - git branch -a --- リモートブランチを確認
  - git fetch origin pull/12/head:PR-12 --- PRを確認するためにローカルに持ってくる
   
- ### 便利なコマンド
+ ### 便利なショートカット
  - ［Ctrl］＋［Shift］＋［T］--- 閉じてしまったタブを元に戻す 
  
  
