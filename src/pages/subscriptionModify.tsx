@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import React, { useEffect, useState } from 'react'
-import { supabase } from 'src/lib/supabase/supabase';
+import { supabase } from '@lib/supabase/supabase';
 import Link from "next/link";
 import type { subsType } from "@lib/type/subs.model"
 import { FileDatabase } from 'tabler-icons-react';
@@ -25,23 +25,41 @@ const SubscriptionModify: NextPage = () => {
     }
 
     useEffect(() => {
-        getTableData();
-        // subscriptionを生成
-        const subscription = supabase
-            .from('subscription_management')
-            // .onの第一引数には'INSERT'や'UPDATE'などアクションを限定して指定することも可能
-            .on('*', (payload) => {
+        // getTableData();
+        // // subscriptionを生成
+        // const subscription = supabase
+        //     .from('subscription_management')
+        //     // .onの第一引数には'INSERT'や'UPDATE'などアクションを限定して指定することも可能
+        //     .on('*', (payload) => {
+        //         getTableData();
+        //         console.log('Change received!', payload);
+        //     })
+        //     .subscribe();
+
+        // return () => {
+        //     // アンマウント時にsubscriptionを解除
+        //     if (subscription) {
+        //         supabase.removeSubscription(subscription);
+        //     }
+        // };
+
+        console.log("honoka")
+
+        supabase
+            .from("subscription_management")
+            .on("*", (payload) => {
                 getTableData();
-                console.log('Change received!', payload);
             })
             .subscribe();
-
-        return () => {
-            // アンマウント時にsubscriptionを解除
-            if (subscription) {
-                supabase.removeSubscription(subscription);
-            }
-        };
+        getTableData();
+        // supabase
+        //     .from('subscription_management')
+        //     .on('*', payload => {
+        //         console.log('Change received!', payload)
+        //         getTableData();
+        //     })
+        //     .subscribe()
+        // getTableData();
 
     }, [])
 
