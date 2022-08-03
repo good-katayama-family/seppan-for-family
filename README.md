@@ -24,11 +24,14 @@ https://www.wakuwakubank.com/posts/861-git-markdown/
  ##### developからmainへのマージはkatayama8000がやるよ
  
  ### その他よく使うgitコマンド
-  - git branch -D ブランチ名 --- ローカルブランチを削除
-  - git branch -m ブランチ名 --- ローカルブランチ名を変更
-  - git push --delete origin ブランチ名 --- リモートブランチを削除
-  - git branch -a --- リモートブランチを確認
-  - git fetch origin pull/12/head:PR-12 --- PRを確認するためにローカルに持ってくる
+ - git branch -D ブランチ名 --- ローカルブランチを削除
+ - git branch -m ブランチ名 --- ローカルブランチ名を変更
+ - git push --delete origin ブランチ名 --- リモートブランチを削除
+ - git branch -a --- リモートブランチを確認
+ - git fetch origin pull/12/head:PR-12 --- PRを確認するためにローカルに持ってくる
+  
+ ### 便利なコマンド
+ - ［Ctrl］＋［Shift］＋［T］--- 閉じてしまったタブを元に戻す 
  
  
   
