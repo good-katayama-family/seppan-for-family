@@ -1,7 +1,7 @@
 export type subsType = {
   id?: number;
-  subsname: string;
-  deadline: string;
+  subname: string;
+  deadline: string | null;
   membership_fee: number;
   pay_period: string;
 };

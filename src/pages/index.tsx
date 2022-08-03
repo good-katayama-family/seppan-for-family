@@ -160,7 +160,7 @@ const Home: NextPage = () => {
       <Box sx={{ maxWidth: 480 }} mx="auto">
         <form onSubmit={form.onSubmit((values) => handleSum(values))}>
           <Grid>
-            {householdList.map((cost, index) => {
+            {householdList.map((cost) => {
               return (
                 <Grid.Col span={6} key={cost.label}>
                   <NumberInput

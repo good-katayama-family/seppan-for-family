@@ -1,15 +1,9 @@
+import type { costFormType } from "@lib/type/costForm.model";
+
 type householdType = {
   label: string;
   placeholder: string;
-  form:
-    | "rent"
-    | "utilityCost"
-    | "waterCost"
-    | "foodCost"
-    | "communicationCost"
-    | "dailyCost"
-    | "entertainmentCost"
-    | "othersCost";
+  form: keyof costFormType;
 };
 
 export const householdList: householdType[] = [

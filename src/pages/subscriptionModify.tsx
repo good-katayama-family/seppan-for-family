@@ -5,18 +5,29 @@ import Link from "next/link";
 import type { subsType } from "@lib/type/subs.model"
 import { FileDatabase } from 'tabler-icons-react';
 import { Button, Group, Table } from '@mantine/core';
+import dayjs from "dayjs"
 
 
 const SubscriptionModify: NextPage = () => {
-    const [tables, setTables] = useState<subsType[]>()
+    const [subsData, setSubsData] = useState<subsType[]>()
 
-    const getTableData = async () => {
+    const getSubsData = async () => {
         const { data, error } = await supabase
             .from('subscription_management')
             .select()
 
-        setTables(data as subsType[])
+
+        const subsData = data?.map((item) => {
+            const deadline = dayjs(item.deadline).format("YYYY/MM/DD")
+            return { ...item, deadline }
+        })
+
+        if (error) {
+            alert("もう一回やり直してください")
+        }
+        setSubsData(subsData as subsType[])
     }
+
     const handleDelete = async (id: number) => {
         const { data, error } = await supabase
             .from('subscription_management')
@@ -25,33 +36,17 @@ const SubscriptionModify: NextPage = () => {
     }
 
     useEffect(() => {
-        // getTableData();
-        // // subscriptionを生成
-        // const subscription = supabase
-        //     .from('subscription_management')
-        //     // .onの第一引数には'INSERT'や'UPDATE'などアクションを限定して指定することも可能
-        //     .on('*', (payload) => {
-        //         getTableData();
-        //         console.log('Change received!', payload);
-        //     })
-        //     .subscribe();
-
-        // return () => {
-        //     // アンマウント時にsubscriptionを解除
-        //     if (subscription) {
-        //         supabase.removeSubscription(subscription);
-        //     }
-        // };
-
-        console.log("honoka")
-
-        supabase
-            .from("subscription_management")
-            .on("*", (payload) => {
-                getTableData();
+        getSubsData();
+        // subscriptionを生成
+        const subscription = supabase
+            .from('subscription_management')
+            // .onの第一引数には'INSERT'や'UPDATE'などアクションを限定して指定することも可能
+            .on('*', (payload) => {
+                getSubsData();
+                console.log('Change received!', payload);
             })
             .subscribe();
-        getTableData();
+        getSubsData();
         // supabase
         //     .from('subscription_management')
         //     .on('*', payload => {
@@ -62,13 +57,6 @@ const SubscriptionModify: NextPage = () => {
         // getTableData();
 
     }, [])
-
-    const demo = async () => {
-        const { data, error } = await supabase
-            .from('subscription_management')
-            .delete()
-            .match({ id: 30 })
-    }
 
 
     return (
@@ -99,14 +87,14 @@ const SubscriptionModify: NextPage = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {tables?.map((table: subsType) => {
+                    {subsData?.map((data: subsType) => {
                         return (
-                            <tr key={table.id}>
-                                <td>{table.subsname}</td>
-                                <td>{table.deadline}</td>
-                                <td>{table.pay_period}</td>
-                                <td>{table.membership_fee.toLocaleString()}</td>
-                                <td><Button variant="light" color="violet" onClick={() => handleDelete(table.id!)}>×</Button></td>
+                            <tr key={data.id}>
+                                <td>{data.subname}</td>
+                                <td>{data.deadline}</td>
+                                <td>{data.pay_period}</td>
+                                <td>{data.membership_fee.toLocaleString()}</td>
+                                <td><Button variant="light" color="violet" onClick={() => handleDelete(data.id!)}>×</Button></td>
                             </tr>
                         )
                     })}
@@ -121,10 +109,6 @@ const SubscriptionModify: NextPage = () => {
                     </a>
                 </Link>
             </Group>
-
-            <Button variant="filled" color="red" onClick={() => demo()}>
-                デモ
-            </Button>
         </div>
     )
 }
