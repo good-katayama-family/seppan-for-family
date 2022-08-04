@@ -123,9 +123,9 @@ const SubscriptionModify: NextPage = () => {
                             <Button variant="light" color="violet" type="submit">
                                 修正
                             </Button>
-                            <Button variant="light" color="violet" type="submit">
+                            {/* <Button variant="light" color="violet" onClick={() => handleDelete()}>
                                 削除
-                            </Button>
+                            </Button> */}
                         </Group>
                     </form>
 
@@ -167,7 +167,6 @@ const SubscriptionModify: NextPage = () => {
                                 <td>{data.deadline}</td>
                                 <td>{data.pay_period}</td>
                                 <td>{data.membership_fee.toLocaleString()}</td>
-                                {/* <td><Button variant="light" color="violet" onClick={() => handleDelete(data.id!)}>×</Button></td> */}
                             </tr>
                         )
                     })}
