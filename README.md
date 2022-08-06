@@ -94,6 +94,7 @@ creat_at|作成日|date|
 userid|ユーザーID|string|△
 subname|サブスクリプション|string|
 deadline|締日|date|
+rigistar_date|登録日|date|
 membership_fee|会費|int8|
 pay_period|支払い周期|string|
 
