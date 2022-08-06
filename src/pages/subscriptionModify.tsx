@@ -73,7 +73,6 @@ const SubscriptionModify: NextPage = () => {
                 console.log('Change received!', payload);
             })
             .subscribe();
-        getSubsData();
     }, [])
 
 
@@ -137,6 +136,7 @@ const SubscriptionModify: NextPage = () => {
     )
 }
 
+//Modalコンポーネント
 type Props = {
     isOpend: boolean;
     setIsOpend: React.Dispatch<React.SetStateAction<boolean>>
@@ -174,9 +174,6 @@ const EditModal: FC<Props> = ({ isOpend, setIsOpend, id, form }) => {
             .delete()
             .match({ id: id })
     }
-
-
-
 
     return (
         <Modal
@@ -232,10 +229,8 @@ const EditModal: FC<Props> = ({ isOpend, setIsOpend, id, form }) => {
                         </Button>
                     </Group>
                 </form>
-
             </div>
         </Modal>
-
     )
 }
 
