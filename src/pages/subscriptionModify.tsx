@@ -17,6 +17,7 @@ const SubscriptionModify: NextPage = () => {
     const [subsData, setSubsData] = useState<subsType[]>()
     const [isOpend, setIsOpend] = useState<boolean>(false)
     const [id, setId] = useState<number>(0)
+    const [value, setValue] = useState<Date>()
 
     const form = useForm({
         initialValues: {
@@ -40,11 +41,11 @@ const SubscriptionModify: NextPage = () => {
             }
 
             if (data) {
-                const subsData = data?.map((item) => {
-                    const deadline = dayjs(item.deadline).format("YYYY/MM/DD")
-                    return { ...item, deadline }
-                })
-                setSubsData(subsData as subsType[])
+                // const subsData = data?.map((item) => {
+                //     const deadline = dayjs(item.deadline).format("YYYY/MM/DD")
+                //     return { ...item, deadline }
+                // })
+                setSubsData(data as subsType[])
             }
 
         } catch (e) {
@@ -54,14 +55,19 @@ const SubscriptionModify: NextPage = () => {
 
     const handleEdit = (data: subsType) => {
         setIsOpend(true);
-        const deadline = dayjs(data.deadline).format("YYYYMMDD")
-        console.log(deadline)
+        //const deadline = dayjs(data.deadline).format("YYYYMMDD")
+        console.log(data)
+
         form.setValues({
             subname: data.subname,
-            deadline: deadline,
+            deadline: data.deadline!,
             pay_period: data.pay_period,
             membership_fee: data.membership_fee
         });
+
+        const date = new Date(data.deadline!)
+        console.log("kokokoko", date)
+        setValue(date)
         setId(data.id!)
     }
 
@@ -86,6 +92,7 @@ const SubscriptionModify: NextPage = () => {
                 setIsOpend={setIsOpend}
                 form={form}
                 id={id}
+                value={value!}
             />
 
             <div className='flex justify-center'>
@@ -117,7 +124,7 @@ const SubscriptionModify: NextPage = () => {
                             <tr key={data.id}>
                                 <td><Button variant="light" color="violet" onClick={() => handleEdit(data)}>編集</Button></td>
                                 <td>{data.subname}</td>
-                                <td>{data.deadline}</td>
+                                <td>{dayjs(data.deadline).format("YYYY/MM/DD")}</td>
                                 <td>{data.pay_period}</td>
                                 <td>{data.membership_fee.toLocaleString()}</td>
                             </tr>
@@ -149,9 +156,10 @@ type Props = {
         pay_period: string;
         membership_fee: number;
     }>
+    value: Date
 }
 
-const EditModal: FC<Props> = ({ isOpend, setIsOpend, id, form }) => {
+const EditModal: FC<Props> = ({ isOpend, setIsOpend, id, form, value }) => {
 
     console.log(id)
 
@@ -282,6 +290,7 @@ const EditModal: FC<Props> = ({ isOpend, setIsOpend, id, form }) => {
                         placeholder={""}
                         label="支払い期限日"
                         {...form.getInputProps('deadline')}
+                        value={value!}
                     />
                     <Select
                         label="プラン"
