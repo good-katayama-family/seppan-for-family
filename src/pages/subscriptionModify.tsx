@@ -3,12 +3,13 @@ import React, { FC, useEffect, useState } from 'react'
 import { supabase } from '@lib/supabase/supabase';
 import Link from "next/link";
 import type { subsType } from "@lib/type/subs.model"
-import { FileDatabase, TableImport } from 'tabler-icons-react';
+import { Check, FileDatabase, TableImport } from 'tabler-icons-react';
 import { Button, Group, Modal, NumberInput, Select, Table, TextInput } from '@mantine/core';
 import dayjs from "dayjs"
 import { DatePicker } from "@mantine/dates";
 import { useForm } from "@mantine/form";
 import { UseFormReturnType } from "@mantine/form/lib/use-form";
+import { showNotification } from "@mantine/notifications";
 
 
 
@@ -30,7 +31,8 @@ const SubscriptionModify: NextPage = () => {
         try {
             const { data, error } = await supabase
                 .from('subscription_management')
-                .select()
+                .select('*')
+                .order('id')
 
             if (!data || error) {
                 alert("もう一回やり直してください")
@@ -52,10 +54,11 @@ const SubscriptionModify: NextPage = () => {
 
     const handleEdit = (data: subsType) => {
         setIsOpend(true);
-        console.log(data)
+        const deadline = dayjs(data.deadline).format("YYYYMMDD")
+        console.log(deadline)
         form.setValues({
             subname: data.subname,
-            deadline: data.deadline!,
+            deadline: deadline,
             pay_period: data.pay_period,
             membership_fee: data.membership_fee
         });
@@ -83,7 +86,6 @@ const SubscriptionModify: NextPage = () => {
                 setIsOpend={setIsOpend}
                 form={form}
                 id={id}
-            //handleUpdate={handleUpdate}
             />
 
             <div className='flex justify-center'>
@@ -155,24 +157,101 @@ const EditModal: FC<Props> = ({ isOpend, setIsOpend, id, form }) => {
 
     const handleUpdate = async (values: subsType) => {
         console.log(id)
-        const { data, error } = await supabase
-            .from('subscription_management')
-            .update([
-                {
-                    subname: values.subname,
-                    deadline: values.deadline,
-                    pay_period: values.pay_period,
-                    membership_fee: values.membership_fee
-                }
-            ])
-            .match({ id: id })
+        try {
+            const { data, error } = await supabase
+                .from('subscription_management')
+                .update([
+                    {
+                        subname: values.subname,
+                        deadline: values.deadline,
+                        pay_period: values.pay_period,
+                        membership_fee: values.membership_fee
+                    }
+                ])
+                .match({ id: id })
+            if (data) {
+                showNotification({
+                    disallowClose: true,
+                    autoClose: 2000,
+                    title: "更新できました！！",
+                    message: "",
+                    icon: <Check />,
+                    color: 'violet',
+                    className: 'my-notification-class',
+                    loading: false,
+                })
+                setIsOpend(false);
+            } else if (error) {
+                showNotification({
+                    disallowClose: true,
+                    autoClose: 2000,
+                    title: error.message,
+                    message: "",
+                    icon: <Check />,
+                    color: 'violet',
+                    className: 'my-notification-class',
+                    loading: false,
+                })
+            }
+        } catch (e) {
+            showNotification({
+                disallowClose: true,
+                autoClose: 2000,
+                title: "更新できませんでした",
+                message: "",
+                icon: <Check />,
+                color: 'violet',
+                className: 'my-notification-class',
+                loading: false,
+            })
+
+        }
+
+
     };
 
     const handleDelete = async () => {
-        const { data, error } = await supabase
-            .from('subscription_management')
-            .delete()
-            .match({ id: id })
+        try {
+            const { data, error } = await supabase
+                .from('subscription_management')
+                .delete()
+                .match({ id: id })
+            if (data) {
+                showNotification({
+                    disallowClose: true,
+                    autoClose: 2000,
+                    title: "削除できました！！",
+                    message: "",
+                    icon: <Check />,
+                    color: 'violet',
+                    className: 'my-notification-class',
+                    loading: false,
+                })
+                setIsOpend(false);
+            } else if (error) {
+                showNotification({
+                    disallowClose: true,
+                    autoClose: 2000,
+                    title: error.message,
+                    message: "",
+                    icon: <Check />,
+                    color: 'violet',
+                    className: 'my-notification-class',
+                    loading: false,
+                })
+            }
+        } catch {
+            showNotification({
+                disallowClose: true,
+                autoClose: 2000,
+                title: "削除できませんでした",
+                message: "",
+                icon: <Check />,
+                color: 'violet',
+                className: 'my-notification-class',
+                loading: false,
+            })
+        }
     }
 
     return (
