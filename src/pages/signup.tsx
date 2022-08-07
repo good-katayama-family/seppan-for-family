@@ -4,32 +4,36 @@ import { useState } from "react";
 import { useForm } from "@mantine/form";
 import { TextInput, Button, Group, Box, PasswordInput } from "@mantine/core";
 import { WritingSign } from "tabler-icons-react";
+import { toast } from "@lib/toast/toast"
+import { useRouter } from "next/router";
 
 
 //emailで認証しなければならないらしい
 const SignUp: NextPage = () => {
     const [loading, setLoading] = useState<boolean>(false);
-
+    const router = useRouter()
 
     const handleSignin = async (values: any) => {
         setLoading(true);
         console.log(values);
-        const { user, session, error } = await supabase.auth.signUp({
-            email: values.email,
-            password: values.password,
-        });
-
-        if (user) {
-            console.log(user);
-            console.log(user.id);
+        try {
+            const { user, session, error } = await supabase.auth.signUp({
+                email: values.email,
+                password: values.password,
+            });
+            if (user) {
+                toast("登録", "violet", false)
+                router.push("/")
+            } else if (session) {
+                toast("登録", "violet", false)
+                router.push("/")
+            } else if (error) {
+                toast("登録", "red", true)
+            }
+            setLoading(false);
+        } catch {
+            toast("登録", "red", true)
         }
-        if (session) {
-            console.log("session", session);
-        }
-        if (error) {
-            console.log(error);
-        }
-        setLoading(false);
     };
 
     const form = useForm({
