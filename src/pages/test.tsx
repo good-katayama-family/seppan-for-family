@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { supabase } from '@lib/supabase/supabase';
 import { database } from 'faker';
 
-const test = () => {
+const Test = () => {
     const add = async () => {
         console.log("hello")
         const { data, error } = await supabase.from('test').insert([{ name: "穂乃果" }])
@@ -31,4 +31,4 @@ const test = () => {
     )
 }
 
-export default test
+export default Test
