@@ -16,7 +16,8 @@ const Subscription: NextPage = () => {
         try {
             const { data, error } = await supabase
                 .from('subscription_management')
-                .select()
+                .select('*')
+                .order('id')
             const subsData = data?.map((item) => {
                 const deadline = dayjs(item.deadline).format("YYYY/MM/DD")
                 return { ...item, deadline }
