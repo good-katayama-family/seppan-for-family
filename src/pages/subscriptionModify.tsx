@@ -10,6 +10,7 @@ import { DatePicker } from "@mantine/dates";
 import { useForm } from "@mantine/form";
 import { UseFormReturnType } from "@mantine/form/lib/use-form";
 import { showNotification } from "@mantine/notifications";
+import { toast } from "@lib/toast/toast";
 
 
 
@@ -178,41 +179,13 @@ const EditModal: FC<Props> = ({ isOpend, setIsOpend, id, form, value }) => {
                 ])
                 .match({ id: id })
             if (data) {
-                showNotification({
-                    disallowClose: true,
-                    autoClose: 2000,
-                    title: "更新できました！！",
-                    message: "",
-                    icon: <Check />,
-                    color: 'violet',
-                    className: 'my-notification-class',
-                    loading: false,
-                })
+                toast("更新", "violet", false)
                 setIsOpend(false);
             } else if (error) {
-                showNotification({
-                    disallowClose: true,
-                    autoClose: 2000,
-                    title: error.message,
-                    message: "",
-                    icon: <Check />,
-                    color: 'violet',
-                    className: 'my-notification-class',
-                    loading: false,
-                })
+                toast("更新", "violet", true)
             }
         } catch (e) {
-            showNotification({
-                disallowClose: true,
-                autoClose: 2000,
-                title: "更新できませんでした",
-                message: "",
-                icon: <Check />,
-                color: 'violet',
-                className: 'my-notification-class',
-                loading: false,
-            })
-
+            toast("更新", "violet", true)
         }
 
 

@@ -7,6 +7,7 @@ import { useForm } from '@mantine/hooks';
 import { showNotification } from '@mantine/notifications';
 import { TableImport, Check } from 'tabler-icons-react';
 import type { subsType } from "@lib/type/subs.model"
+import { toast } from '@lib/toast/toast';
 
 const SubscriptionAdd: NextPage = () => {
 
@@ -45,39 +46,12 @@ const SubscriptionAdd: NextPage = () => {
                         }
                     ])
                 if (data) {
-                    showNotification({
-                        disallowClose: true,
-                        autoClose: 2000,
-                        title: "登録できました！！",
-                        message: "",
-                        icon: <Check />,
-                        color: 'violet',
-                        className: 'my-notification-class',
-                        loading: false,
-                    })
+                    toast("登録", "violet", false)
                 } else if (error) {
-                    showNotification({
-                        disallowClose: true,
-                        autoClose: 2000,
-                        title: error.message,
-                        message: "",
-                        icon: <Check />,
-                        color: 'violet',
-                        className: 'my-notification-class',
-                        loading: false,
-                    })
+                    toast("登録", "violet", true)
                 }
             } catch (e) {
-                showNotification({
-                    disallowClose: true,
-                    autoClose: 2000,
-                    title: "登録できませんでした",
-                    message: "",
-                    icon: <Check />,
-                    color: 'violet',
-                    className: 'my-notification-class',
-                    loading: false,
-                })
+                toast("登録", "violet", true)
             }
 
         }
