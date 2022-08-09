@@ -6,6 +6,7 @@ import { useForm } from "@mantine/form";
 import { TextInput, Button, Group, Box, PasswordInput } from "@mantine/core";
 import { Login } from "tabler-icons-react";
 import { toast } from "@lib/toast/toast"
+import Link from "next/link";
 
 
 //emailで認証しなければならないらしい
@@ -72,7 +73,9 @@ const SignIn: NextPage = () => {
                     {...form.getInputProps("password")}
                     className="my-4"
                 />
-
+                <div className='text-center'>
+                    <Link href="/forgot"><a className='no-underline text-xs text-violet-700'>パスワードをお忘れの方はこちらをクリック</a></Link>
+                </div>
                 <Group position="center" mt="xl">
                     <Button type="submit" variant="light" color="violet" loading={loading}>
                         ログイン
