@@ -4,36 +4,36 @@ import { useState } from "react";
 import { supabase } from "../lib/supabase/supabase";
 import { useForm } from "@mantine/form";
 import { TextInput, Button, Group, Box, PasswordInput } from "@mantine/core";
-
 import { Login } from "tabler-icons-react";
+import { toast } from "@lib/toast/toast"
+import Link from "next/link";
 
 
 //emailで認証しなければならないらしい
 const SignIn: NextPage = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const router = useRouter()
-    console.log(router.push)
 
     const handleSignin = async (values: any) => {
         setLoading(true);
-        console.log(values);
-        const { user, session, error } = await supabase.auth.signIn({
-            email: values.email,
-            password: values.password,
-        });
-
-        if (user) {
-            console.log(user);
-            console.log(user.id);
-            router.push("/")
+        try {
+            const { user, session, error } = await supabase.auth.signIn({
+                email: values.email,
+                password: values.password,
+            });
+            if (user) {
+                toast("ログイン", "violet", false)
+                router.push("/")
+            } else if (session) {
+                toast("ログイン", "violet", false)
+                router.push("/")
+            } else if (error) {
+                toast("ログイン", "red", true)
+            }
+            setLoading(false);
+        } catch {
+            toast("ログイン", "red", true)
         }
-        if (session) {
-            console.log("session", session);
-        }
-        if (error) {
-            console.log(error);
-        }
-        setLoading(false);
     };
 
     const form = useForm({
@@ -73,7 +73,9 @@ const SignIn: NextPage = () => {
                     {...form.getInputProps("password")}
                     className="my-4"
                 />
-
+                <div className='text-center'>
+                    <Link href="/forgot"><a className='no-underline text-xs text-violet-700'>パスワードをお忘れの方はこちらをクリック</a></Link>
+                </div>
                 <Group position="center" mt="xl">
                     <Button type="submit" variant="light" color="violet" loading={loading}>
                         ログイン
