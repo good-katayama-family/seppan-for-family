@@ -20,9 +20,19 @@ const Forgot: NextPage = () => {
         },
     });
 
-    const handleResetPassword = ({ email }: IForm) => {
-        supabase.auth.api.resetPasswordForEmail(email, { redirectTo: 'http://localhost:3000/reset', });
-        toast("メールを送信", "violet", false)
+    const handleResetPassword = async ({ email }: IForm) => {
+        try {
+            const { data, error } = await supabase.auth.api.resetPasswordForEmail(email, { redirectTo: 'http://localhost:3000/reset', });
+            if (data) {
+                toast("メールを送信", "violet", false)
+                console.log(data)
+            }
+            if (error || !data) {
+                toast("メールを送信", "red", true)
+            }
+        } catch {
+            toast("メールを送信", "red", true)
+        }
     };
 
     return (
