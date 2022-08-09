@@ -67,7 +67,6 @@ const SubscriptionModify: NextPage = () => {
         });
 
         const date = new Date(data.deadline!)
-        console.log("kokokoko", date)
         setValue(date)
         setId(data.id!)
     }
@@ -182,10 +181,10 @@ const EditModal: FC<Props> = ({ isOpend, setIsOpend, id, form, value }) => {
                 toast("更新", "violet", false)
                 setIsOpend(false);
             } else if (error) {
-                toast("更新", "violet", true)
+                toast("更新", "red", true)
             }
         } catch (e) {
-            toast("更新", "violet", true)
+            toast("更新", "red", true)
         }
 
 

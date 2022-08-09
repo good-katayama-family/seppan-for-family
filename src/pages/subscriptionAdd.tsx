@@ -4,8 +4,7 @@ import { supabase } from 'src/lib/supabase/supabase';
 import { DatePicker } from '@mantine/dates';
 import { TextInput, Select, NumberInput, Button, Group } from '@mantine/core';
 import { useForm } from '@mantine/hooks';
-import { showNotification } from '@mantine/notifications';
-import { TableImport, Check } from 'tabler-icons-react';
+import { TableImport } from 'tabler-icons-react';
 import type { subsType } from "@lib/type/subs.model"
 import { toast } from '@lib/toast/toast';
 
@@ -48,10 +47,10 @@ const SubscriptionAdd: NextPage = () => {
                 if (data) {
                     toast("登録", "violet", false)
                 } else if (error) {
-                    toast("登録", "violet", true)
+                    toast("登録", "red", true)
                 }
             } catch (e) {
-                toast("登録", "violet", true)
+                toast("登録", "red", true)
             }
 
         }
