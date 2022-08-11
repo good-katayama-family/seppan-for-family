@@ -81,8 +81,11 @@ ratio|割合|int8|
 ---|---|---|---
 userid|ユーザーID|string|◎
 username|ユーザー名|string|
+e-mail|メールアドレス|strng|
 password|パスワード|string|
+relationship|続柄|int|△
 family_code|ファミリーコード|string|△
+
 
 
  - subscription_management
