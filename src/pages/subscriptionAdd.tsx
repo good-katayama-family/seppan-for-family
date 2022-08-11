@@ -3,10 +3,11 @@ import type { NextPage } from "next";
 import { supabase } from 'src/lib/supabase/supabase';
 import { DatePicker } from '@mantine/dates';
 import { TextInput, Select, NumberInput, Button, Group } from '@mantine/core';
-import { useForm } from '@mantine/hooks';
+
 import { TableImport } from 'tabler-icons-react';
 import type { subsType } from "@lib/type/subs.model"
 import { toast } from '@lib/toast/toast';
+import { useForm } from '@mantine/form';
 
 const SubscriptionAdd: NextPage = () => {
 
@@ -114,9 +115,9 @@ const SubscriptionAdd: NextPage = () => {
                             </Button>
                         </a>
                     </Link>
-                    <Button variant="filled" color="red" onClick={form.onSubmit((values) => tentimes(values))}>
+                    {/* <Button variant="filled" color="red" onClick={form.onSubmit((values) => tentimes(values))}>
                         開発中のみ20個のデータを送る
-                    </Button>
+                    </Button> */}
                 </Group>
             </form>
 

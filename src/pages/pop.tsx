@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { Modal, Button, Group, TextInput, NumberInput, Select } from '@mantine/core';
 import { Check, TableImport } from 'tabler-icons-react';
 import { DatePicker } from '@mantine/dates';
-import { useForm } from '@mantine/hooks';
 import { supabase } from 'src/lib/supabase/supabase';
 import { showNotification } from '@mantine/notifications';
+import { useForm } from '@mantine/form';
 
 export type formValue = {
     //[key: string]: number | null

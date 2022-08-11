@@ -1,7 +1,6 @@
 import { Button } from '@mantine/core'
 import React, { useEffect } from 'react'
 import { supabase } from '@lib/supabase/supabase';
-import { database } from 'faker';
 
 const Test = () => {
     const add = async () => {
