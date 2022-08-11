@@ -12,7 +12,7 @@ import {
     IconLogout,
     IconSwitchHorizontal,
 } from '@tabler/icons';
-import { MantineLogo } from '@mantine/ds';
+//import { MantineLogo } from '@mantine/ds';
 
 const useStyles = createStyles((theme) => ({
     link: {
@@ -79,9 +79,6 @@ export function NavbarMinimal() {
 
     return (
         <Navbar height={750} width={{ base: 80 }} p="md">
-            <Center>
-                <MantineLogo type="mark" size={30} />
-            </Center>
             <Navbar.Section grow mt={50}>
                 <Stack justify="center" spacing={0}>
                     {links}
