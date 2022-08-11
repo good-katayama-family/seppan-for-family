@@ -1,34 +1,19 @@
-import { Button } from '@mantine/core'
-import React, { useEffect } from 'react'
-import { supabase } from '@lib/supabase/supabase';
-import { database } from 'faker';
+import { Grid } from '@mantine/core';
 
-const Test = () => {
-    const add = async () => {
-        console.log("hello")
-        const { data, error } = await supabase.from('test').insert([{ name: "穂乃果" }])
-        console.log(data, error)
-    }
-    const deletemmm = () => {
-        //const { data, error } = await supabase.from('test').delete()
-    }
 
-    useEffect(() => {
-        supabase
-            .from("test")
-            .on("*", (payload) => {
-                console.log(payload)
-            })
-            .subscribe();
-    }, [])
+function Demo() {
     return (
-        <div>
-            <div>test</div>
-            <Button onClick={() => add()}>add</Button>
-            <Button color={"red"} onClick={() => deletemmm()}>delete</Button>
-
+        <div className='m-auto max-w-5xl'>
+            <Grid>
+                <Grid.Col span={6}>
+                    <div className="rounded-full h-16 w-16 flex items-center justify-center bg-blue-400">男</div>
+                </Grid.Col>
+                <Grid.Col span={6}>
+                    <div className="rounded-full h-16 w-16 flex items-center justify-center bg-red-400">女</div>
+                </Grid.Col>
+            </Grid>
         </div>
-    )
+    );
 }
 
-export default Test
+export default Demo

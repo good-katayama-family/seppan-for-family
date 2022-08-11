@@ -2,7 +2,7 @@ import { NextPage } from "next";
 import { supabase } from "../lib/supabase/supabase";
 import { useState } from "react";
 import { useForm } from "@mantine/form";
-import { TextInput, Button, Group, Box, PasswordInput } from "@mantine/core";
+import { TextInput, Button, Group, Box, PasswordInput, RadioGroup, Radio } from "@mantine/core";
 import { WritingSign } from "tabler-icons-react";
 import { toast } from "@lib/toast/toast"
 import { useRouter } from "next/router";
@@ -60,6 +60,13 @@ const SignUp: NextPage = () => {
             <form onSubmit={form.onSubmit((values) => handleSignin(values))}>
                 <TextInput
                     required
+                    label="ユーザー名"
+                    placeholder="ほの"
+                    {...form.getInputProps("username")}
+                    className="my-4"
+                />
+                <TextInput
+                    required
                     label="メールアドレス"
                     placeholder="your@email.com"
                     {...form.getInputProps("email")}
@@ -71,6 +78,21 @@ const SignUp: NextPage = () => {
                     label="パスワード"
                     placeholder="Password"
                     {...form.getInputProps("password")}
+                    className="my-4"
+                />
+                <RadioGroup
+                    label="続柄"
+                    spacing="xl"
+                    required
+                >
+                    <Radio value="girl" label="妻or彼女" />
+                    <Radio value="boy" label="夫or彼氏" />
+                </RadioGroup>
+
+                <TextInput
+                    label="ファミリーコード"
+                    placeholder="パートナー"
+                    {...form.getInputProps("family_code")}
                     className="my-4"
                 />
 
