@@ -83,8 +83,15 @@ userid|ユーザーID|string|◎
 username|ユーザー名|string|
 e-mail|メールアドレス|strng|
 password|パスワード|string|
-relationship|続柄|int|△
+relationship_cd|続柄|int|△
 family_code|ファミリーコード|string|△
+
+ - relationship_code
+ 
+項目名|内容|型|キー
+---|---|---|---
+relationship_cd|続柄コード|int|◎
+relationship|続柄|string|
 
 
 
