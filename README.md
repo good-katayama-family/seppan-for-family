@@ -75,7 +75,7 @@ wife|妻ユーザーID|string|△
 husband|旦那ユーザーID|string|△
 ratio|割合|int8|
 
- - userinfo
+ - user_info
  
 項目名|内容|型|キー
 ---|---|---|---
@@ -86,7 +86,7 @@ password|パスワード|string|
 relationship_cd|続柄|int|△
 family_code|ファミリーコード|string|△
 
- - relationship_code
+ - relationship_info 
  
 項目名|内容|型|キー
 ---|---|---|---
