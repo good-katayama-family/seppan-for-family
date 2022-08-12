@@ -143,46 +143,52 @@ const Home: NextPage = () => {
           className="mt-[28px]"
         />
       </div>
-      <div className="w-[200px] m-auto mb-6">
-        <Slider
-          value={ratio}
-          onChange={setRatio}
-          max={10}
-          size={"sm"}
-          color="violet"
-          marks={[
-            { value: 0, label: '0' },
-            { value: 5, label: '5' },
-            { value: 10, label: '10' },
-          ]}
-        />
-      </div>
-      <Box sx={{ maxWidth: 480 }} mx="auto">
-        <form onSubmit={form.onSubmit((values) => handleSum(values))}>
-          <Grid>
-            {householdList.map((cost) => {
-              return (
-                <Grid.Col span={6} key={cost.label}>
-                  <NumberInput
-                    required
-                    hideControls={true}
-                    label={cost.label}
-                    placeholder={cost.placeholder}
-                    {...form.getInputProps(cost.form)}
-                  />
-                </Grid.Col>
-              )
-            })}
-          </Grid>
-          <Group position="center" mt="md">
-            <Button type="submit" variant="light" color="violet">合計</Button>
-          </Group>
-        </form>
-        <div className="text-center mt-4">今月の合計:<span className="font-bold text-xl pr-2 pl-2">{sumMoney?.toLocaleString() || 0}</span>円</div>
-        <div className="text-center mt-4">あなたのお支払い:<span className="font-bold text-xl pr-2 pl-2">{sumMoneyHalf.toLocaleString()}</span>円</div>
-        <div className="text-center mt-4">あなたの負担割合:<span className="font-bold text-xl pr-2 pl-2">{ratio}</span>割</div>
-      </Box>
-      {ratioOfpayment && <PieChart ratioOfpayment={ratioOfpayment!} ratio={ratio!} />}
+      <Grid>
+        <Grid.Col span={6}>
+          <div className="w-[200px] m-auto mb-6">
+            <Slider
+              value={ratio}
+              onChange={setRatio}
+              max={10}
+              size={"sm"}
+              color="violet"
+              marks={[
+                { value: 0, label: '0' },
+                { value: 5, label: '5' },
+                { value: 10, label: '10' },
+              ]}
+            />
+          </div>
+          <Box sx={{ maxWidth: 480 }} mx="auto">
+            <form onSubmit={form.onSubmit((values) => handleSum(values))}>
+              <Grid>
+                {householdList.map((cost) => {
+                  return (
+                    <Grid.Col span={6} key={cost.label}>
+                      <NumberInput
+                        required
+                        hideControls={true}
+                        label={cost.label}
+                        placeholder={cost.placeholder}
+                        {...form.getInputProps(cost.form)}
+                      />
+                    </Grid.Col>
+                  )
+                })}
+              </Grid>
+              <Group position="center" mt="md">
+                <Button type="submit" variant="light" color="violet">合計</Button>
+              </Group>
+            </form>
+            <div className="text-center mt-4">今月の合計:<span className="font-bold text-xl pr-2 pl-2">{sumMoney?.toLocaleString() || 0}</span>円</div>
+            <div className="text-center mt-4">あなたのお支払い:<span className="font-bold text-xl pr-2 pl-2">{sumMoneyHalf.toLocaleString()}</span>円</div>
+            <div className="text-center mt-4">あなたの負担割合:<span className="font-bold text-xl pr-2 pl-2">{ratio}</span>割</div>
+          </Box>
+        </Grid.Col>
+        <Grid.Col span={6}>
+          {ratioOfpayment && <PieChart ratioOfpayment={ratioOfpayment!} ratio={ratio!} />}
+        </Grid.Col>
+      </Grid>
     </div>
   );
 };
