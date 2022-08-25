@@ -92,37 +92,49 @@ const Home: NextPage = () => {
   }
 
   const handleSetInit = async () => {
-    const { data, error } = await supabase
-      .from('month_of_cost')
-      .select()
+    try {
 
-    const pastSum =
-      data![0].rent +
-      data![0].utility +
-      data![0].water +
-      data![0].food +
-      data![0].communication +
-      data![0].daily +
-      data![0].entertainment +
-      data![0].others;
+      const { data, error } = await supabase
+        .from('month_of_cost')
+        .select()
+      if (data) {
+        const pastSum =
+          data![0].rent +
+          data![0].utility +
+          data![0].water +
+          data![0].food +
+          data![0].communication +
+          data![0].daily +
+          data![0].entertainment +
+          data![0].others;
 
-    setSumMoney(pastSum)
-    setSumMoneyHalf(pastSum * (ratio / 10))
+        setSumMoney(pastSum)
+        setSumMoneyHalf(pastSum * (ratio / 10))
 
-    form.setValues({
-      rent: data![0].rent,
-      utilityCost: data![0].utility,
-      waterCost: data![0].water,
-      foodCost: data![0].food,
-      communicationCost: data![0].communication,
-      dailyCost: data![0].daily,
-      entertainmentCost: data![0].entertainment,
-      othersCost: data![0].others
-    });
+        form.setValues({
+          rent: data![0].rent,
+          utilityCost: data![0].utility,
+          waterCost: data![0].water,
+          foodCost: data![0].food,
+          communicationCost: data![0].communication,
+          dailyCost: data![0].daily,
+          entertainmentCost: data![0].entertainment,
+          othersCost: data![0].others
+        });
+
+      }
+
+      if (error) {
+        alert(`error/データ取得失敗。${error}`)
+      }
+    } catch (e) {
+      alert(`catch/データ取得失敗。${e}`)
+    }
   }
 
   //合計と割合が変更したら、表示を更新
   useEffect(() => {
+    //handleSum(form.values)
     const num = Math.round(sumMoney! * (ratio / 10))
     setSumMoneyHalf(num)
   }, [sumMoney, ratio]);
@@ -143,52 +155,54 @@ const Home: NextPage = () => {
           className="mt-[28px]"
         />
       </div>
-      <Grid>
-        <Grid.Col span={6}>
-          <div className="w-[200px] m-auto mb-6">
-            <Slider
-              value={ratio}
-              onChange={setRatio}
-              max={10}
-              size={"sm"}
-              color="violet"
-              marks={[
-                { value: 0, label: '0' },
-                { value: 5, label: '5' },
-                { value: 10, label: '10' },
-              ]}
-            />
-          </div>
-          <Box sx={{ maxWidth: 480 }} mx="auto">
-            <form onSubmit={form.onSubmit((values) => handleSum(values))}>
-              <Grid>
-                {householdList.map((cost) => {
-                  return (
-                    <Grid.Col span={6} key={cost.label}>
-                      <NumberInput
-                        required
-                        hideControls={true}
-                        label={cost.label}
-                        placeholder={cost.placeholder}
-                        {...form.getInputProps(cost.form)}
-                      />
-                    </Grid.Col>
-                  )
-                })}
-              </Grid>
-              <Group position="center" mt="md">
-                <Button type="submit" variant="light" color="violet">合計</Button>
-              </Group>
-            </form>
-            <div className="text-center mt-4">今月の合計:<span className="font-bold text-xl pr-2 pl-2">{sumMoney?.toLocaleString() || 0}</span>円</div>
-            <div className="text-center mt-4">あなたのお支払い:<span className="font-bold text-xl pr-2 pl-2">{sumMoneyHalf.toLocaleString()}</span>円</div>
-            <div className="text-center mt-4">あなたの負担割合:<span className="font-bold text-xl pr-2 pl-2">{ratio}</span>割</div>
-          </Box>
-        </Grid.Col>
-        <Grid.Col span={6}>
-          {ratioOfpayment && <PieChart ratioOfpayment={ratioOfpayment!} ratio={ratio!} />}
-        </Grid.Col>
-      </Grid>
+      <div className="w-max-xl m-auto mb-6">
+        <Grid >
+          <Grid.Col span={6}>
+            <div className="w-[200px] m-auto mb-6">
+              <Slider
+                value={ratio}
+                onChange={setRatio}
+                max={10}
+                size={"sm"}
+                color="violet"
+                marks={[
+                  { value: 0, label: '0' },
+                  { value: 5, label: '5' },
+                  { value: 10, label: '10' },
+                ]}
+              />
+            </div>
+            <Box sx={{ maxWidth: 480 }} mx="auto">
+              <form onSubmit={form.onSubmit((values) => handleSum(values))}>
+                <Grid>
+                  {householdList.map((cost) => {
+                    return (
+                      <Grid.Col span={6} key={cost.label}>
+                        <NumberInput
+                          required
+                          hideControls={true}
+                          label={cost.label}
+                          placeholder={cost.placeholder}
+                          {...form.getInputProps(cost.form)}
+                        />
+                      </Grid.Col>
+                    )
+                  })}
+                </Grid>
+                <Group position="center" mt="md">
+                  <Button type="submit" variant="light" color="violet">合計</Button>
+                </Group>
+              </form>
+              <div className="text-center mt-4">今月の合計:<span className="font-bold text-xl pr-2 pl-2">{sumMoney?.toLocaleString() || 0}</span>円</div>
+              <div className="text-center mt-4">あなたのお支払い:<span className="font-bold text-xl pr-2 pl-2">{sumMoneyHalf.toLocaleString()}</span>円</div>
+              <div className="text-center mt-4">あなたの負担割合:<span className="font-bold text-xl pr-2 pl-2">{ratio}</span>割</div>
+            </Box>
+          </Grid.Col>
+          <Grid.Col span={6}>
+            {ratioOfpayment && <PieChart ratioOfpayment={ratioOfpayment!} ratio={ratio!} />}
+          </Grid.Col>
+        </Grid>
+      </div>
     </div>
   );
 };
