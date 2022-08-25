@@ -33,12 +33,13 @@ https://www.wakuwakubank.com/posts/861-git-markdown/
  ### 便利なショートカット
  - ［Ctrl］＋［Shift］＋［T］--- 閉じてしまったタブを元に戻す 
  
- ### React
+ ### React.js
  - useCallback 
  - useMemo 
+ - memo
  
- 
-  
+ ### Next.js
+ - useRouter
  
 ## 使用技術スタック
 - TypeScript ---- good-programming-language
