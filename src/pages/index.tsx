@@ -1,29 +1,19 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import type { NextPage } from "next";
-import { Slider, Button, Group, Box, NumberInput } from '@mantine/core';
-import { useForm } from '@mantine/form';
 import { useEffect, useState } from "react";
-import { PieChart } from "@component/chart/PieChart";
-import { ReportMoney } from 'tabler-icons-react';
 import { supabase } from "src/lib/supabase/supabase";
-
-export type formValue = {
-  //[key: string]: number | null
-  rent: number | null;
-  utilityCost: number | null;
-  waterCost: number | null;
-  foodCost: number | null;
-  communicationCost: number | null;
-  dailyCost: number | null;
-  entertainmentCost: number | null;
-  othersCost: number | null;
-}
+import { Slider, Button, Group, Box, NumberInput, Grid } from '@mantine/core';
+import { useForm } from '@mantine/form';
+import { Home as Home_icon } from 'tabler-icons-react';
+import { PieChart } from "src/component/chart/PieChart";
+import type { costFormType } from "@lib/types/costForm.model"
+import { householdList } from "@lib/constant/cost.const"
 
 const Home: NextPage = () => {
   const [sumMoney, setSumMoney] = useState<number | null>(0)
   const [sumMoneyHalf, setSumMoneyHalf] = useState<number>(0)
-  const [ratioOfpayment, setRatioOfpayment] = useState<formValue>()
+  const [ratioOfpayment, setRatioOfpayment] = useState<costFormType>()
   const [ratio, setRatio] = useState(5);
-
 
   const form = useForm({
     initialValues: {
@@ -38,7 +28,7 @@ const Home: NextPage = () => {
     },
   });
 
-  const handleSum = async (values: formValue) => {
+  const handleSum = async (values: costFormType) => {
     let sum = [
       values.rent,
       values.utilityCost,
@@ -67,7 +57,7 @@ const Home: NextPage = () => {
   };
 
   //データを更新
-  const handleUpdate = async (values: formValue, id: number) => {
+  const handleUpdate = async (values: costFormType, id: number) => {
     const { data, error } = await supabase
       .from('month_of_cost')
       .update({
@@ -84,7 +74,7 @@ const Home: NextPage = () => {
   }
 
   //データを追加
-  const handleInsert = async (values: formValue) => {
+  const handleInsert = async (values: costFormType) => {
     const { data, error } = await supabase
       .from('month_of_cost')
       .insert([
@@ -102,36 +92,51 @@ const Home: NextPage = () => {
   }
 
   const handleSetInit = async () => {
-    const { data, error } = await supabase
-      .from('month_of_cost')
-      .select()
-    let pastSum =
-      data![0].rent +
-      data![0].utility +
-      data![0].water +
-      data![0].food +
-      data![0].communication +
-      data![0].daily +
-      data![0].entertainment +
-      data![0].others;
+    try {
 
-    setSumMoney(pastSum)
-    setSumMoneyHalf(pastSum * (ratio / 10))
+      const { data, error } = await supabase
+        .from('month_of_cost')
+        .select()
 
-    form.setValues({
-      rent: data![0].rent,
-      utilityCost: data![0].utility,
-      waterCost: data![0].water,
-      foodCost: data![0].food,
-      communicationCost: data![0].communication,
-      dailyCost: data![0].daily,
-      entertainmentCost: data![0].entertainment,
-      othersCost: data![0].others
-    });
+      console.log(data)
+      if (data) {
+        const pastSum =
+          data![0].rent +
+          data![0].utility +
+          data![0].water +
+          data![0].food +
+          data![0].communication +
+          data![0].daily +
+          data![0].entertainment +
+          data![0].others;
+
+        setSumMoney(pastSum)
+        setSumMoneyHalf(pastSum * (ratio / 10))
+
+        form.setValues({
+          rent: data![0].rent,
+          utilityCost: data![0].utility,
+          waterCost: data![0].water,
+          foodCost: data![0].food,
+          communicationCost: data![0].communication,
+          dailyCost: data![0].daily,
+          entertainmentCost: data![0].entertainment,
+          othersCost: data![0].others
+        });
+
+      }
+
+      if (error) {
+        alert(`error/データ取得失敗。${error}`)
+      }
+    } catch (e) {
+      alert(`catch/データ取得失敗。${e}`)
+    }
   }
 
   //合計と割合が変更したら、表示を更新
   useEffect(() => {
+    //handleSum(form.values)
     const num = Math.round(sumMoney! * (ratio / 10))
     setSumMoneyHalf(num)
   }, [sumMoney, ratio]);
@@ -144,95 +149,62 @@ const Home: NextPage = () => {
   return (
     <div className="px-20">
       <div className="flex justify-center">
-        <h1 className="text-center">Money Half</h1>
-        <ReportMoney
+        <h1 className="text-center">家計簿</h1>
+        <Home_icon
           size={36}
           strokeWidth={2}
           color={'#7950f2'}
           className="mt-[28px]"
         />
       </div>
-      <div className="w-[200px] m-auto mb-6">
-        <Slider
-          value={ratio}
-          onChange={setRatio}
-          max={10}
-          size={"sm"}
-          color="violet"
-          marks={[
-            { value: 0, label: '0' },
-            { value: 5, label: '5' },
-            { value: 10, label: '10' },
-          ]}
-        />
+      <div className="w-max-xl m-auto mb-6">
+        <Grid >
+          <Grid.Col span={6}>
+            <div className="w-[200px] m-auto mb-6">
+              <Slider
+                value={ratio}
+                onChange={setRatio}
+                max={10}
+                size={"sm"}
+                color="violet"
+                marks={[
+                  { value: 0, label: '0' },
+                  { value: 5, label: '5' },
+                  { value: 10, label: '10' },
+                ]}
+              />
+            </div>
+            <Box sx={{ maxWidth: 480 }} mx="auto">
+              <form onSubmit={form.onSubmit((values) => handleSum(values))}>
+                <Grid>
+                  {householdList.map((cost) => {
+                    return (
+                      <Grid.Col span={6} key={cost.label}>
+                        <NumberInput
+                          required
+                          hideControls={true}
+                          label={cost.label}
+                          placeholder={cost.placeholder}
+                          {...form.getInputProps(cost.form)}
+                        />
+                      </Grid.Col>
+                    )
+                  })}
+                </Grid>
+                <Group position="center" mt="md">
+                  <Button type="submit" variant="light" color="violet">合計</Button>
+                </Group>
+              </form>
+              <div className="text-center mt-4">今月の合計:<span className="font-bold text-xl pr-2 pl-2">{sumMoney?.toLocaleString() || 0}</span>円</div>
+              <div className="text-center mt-4">あなたのお支払い:<span className="font-bold text-xl pr-2 pl-2">{sumMoneyHalf.toLocaleString()}</span>円</div>
+              <div className="text-center mt-4">あなたの負担割合:<span className="font-bold text-xl pr-2 pl-2">{ratio}</span>割</div>
+            </Box>
+          </Grid.Col>
+          <Grid.Col span={6}>
+            {ratioOfpayment && <PieChart ratioOfpayment={ratioOfpayment!} ratio={ratio!} />}
+          </Grid.Col>
+        </Grid>
       </div>
-      <Box sx={{ maxWidth: 300 }} mx="auto">
-        <form onSubmit={form.onSubmit((values) => handleSum(values))}>
-          <NumberInput
-            required
-            hideControls={true}
-            label="家賃"
-            placeholder="56000"
-            {...form.getInputProps('rent')}
-          />
-          <NumberInput
-            required
-            hideControls={true}
-            label="光熱費"
-            placeholder="8000"
-            {...form.getInputProps('utilityCost')}
-          />
-          <NumberInput
-            required
-            hideControls={true}
-            label="水道"
-            placeholder="1000"
-            {...form.getInputProps('waterCost')}
-          />
-          <NumberInput
-            required
-            hideControls={true}
-            label="食費"
-            placeholder="20000"
-            {...form.getInputProps('foodCost')}
-          />
-          <NumberInput
-            required
-            hideControls={true}
-            label="通信費"
-            placeholder="4500"
-            {...form.getInputProps('communicationCost')}
-          />
-          <NumberInput
-            required
-            hideControls={true}
-            label="日用品費"
-            placeholder="3800"
-            {...form.getInputProps('dailyCost')}
-          />
-          <NumberInput
-            required
-            hideControls={true}
-            label="交際費"
-            placeholder="15000"
-            {...form.getInputProps('entertainmentCost')}
-          />
-          <NumberInput
-            required
-            hideControls={true}
-            label="その他"
-            placeholder="1200"
-            {...form.getInputProps('othersCost')}
-          />
-          <Group position="center" mt="md">
-            <Button type="submit" variant="light" color="violet">合計</Button>
-          </Group>
-        </form>
-        <div className="text-center mt-4">今月の合計:<span className="font-bold text-xl pr-2 pl-2">{sumMoney?.toLocaleString() || 0}</span>円</div>
-        <div className="text-center mt-4">あなたのお支払い:<span className="font-bold text-xl pr-2 pl-2">{sumMoneyHalf.toLocaleString()}</span>円</div>
-        <div className="text-center mt-4">あなたの負担割合:<span className="font-bold text-xl pr-2 pl-2">{ratio}</span>割</div>
-      </Box>
-      {ratioOfpayment && <PieChart ratioOfpayment={ratioOfpayment!} ratio={ratio!} />}
     </div>
   );
 };
