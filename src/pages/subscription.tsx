@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { supabase } from 'src/lib/supabase/supabase';
 import { Button, Card, Group, Table } from '@mantine/core';
 import { Table as Table_icon } from 'tabler-icons-react';
-import type { subsType } from "@lib/type/subs.model"
+import type { subsType } from "@lib/types/subs.model"
 import dayjs from "dayjs"
 
 

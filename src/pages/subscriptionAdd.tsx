@@ -5,7 +5,7 @@ import { DatePicker } from '@mantine/dates';
 import { TextInput, Select, NumberInput, Button, Group } from '@mantine/core';
 
 import { TableImport } from 'tabler-icons-react';
-import type { subsType } from "@lib/type/subs.model"
+import type { subsType } from "@lib/types/subs.model"
 import { toast } from '@lib/toast/toast';
 import { useForm } from '@mantine/form';
 

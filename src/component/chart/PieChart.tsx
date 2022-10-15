@@ -2,7 +2,7 @@
 import React, { FC, useMemo } from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
-import type { costFormType } from "@lib/type/costForm.model";
+import type { costFormType } from "@lib/types/costForm.model";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 type Props = {

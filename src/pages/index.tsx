@@ -6,7 +6,7 @@ import { Slider, Button, Group, Box, NumberInput, Grid } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { Home as Home_icon } from 'tabler-icons-react';
 import { PieChart } from "src/component/chart/PieChart";
-import type { costFormType } from "@lib/type/costForm.model"
+import type { costFormType } from "@lib/types/costForm.model"
 import { householdList } from "@lib/constant/cost.const"
 
 const Home: NextPage = () => {
@@ -97,6 +97,8 @@ const Home: NextPage = () => {
       const { data, error } = await supabase
         .from('month_of_cost')
         .select()
+
+      console.log(data)
       if (data) {
         const pastSum =
           data![0].rent +

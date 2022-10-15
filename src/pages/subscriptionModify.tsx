@@ -2,15 +2,16 @@ import type { NextPage } from "next";
 import React, { FC, useEffect, useState } from 'react'
 import { supabase } from '@lib/supabase/supabase';
 import Link from "next/link";
-import type { subsType } from "@lib/type/subs.model"
+import type { subsType } from "@lib/types/subs.model"
 import { Check, FileDatabase, TableImport } from 'tabler-icons-react';
 import { Button, Group, Modal, NumberInput, Select, Table, TextInput } from '@mantine/core';
 import dayjs from "dayjs"
 import { DatePicker } from "@mantine/dates";
-import { useForm, UseFormReturnType } from "@mantine/form";
+import { useForm } from "@mantine/form";
 //import { UseFormReturnType } from "@mantine/form/lib/use-form";
 import { showNotification } from "@mantine/notifications";
 import { toast } from "@lib/toast/toast";
+import { UseFormReturnType } from "@mantine/form/lib/use-form";
 
 
 

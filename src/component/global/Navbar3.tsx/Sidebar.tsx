@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import React, { FC } from 'react'
 import { Home, Login, Table, WritingSign, BellRinging } from "tabler-icons-react";
-import type { linkType } from '@lib/type/link.model';
+import type { linkType } from '@lib/types/link.model';
 
 const LINK: linkType[] = [
     { url: "/", name: "家計簿", icon: <Home color={'#7950f2'} /> },
